@@ -6,17 +6,17 @@ import {resolve} from 'node:path';
 import {stdin as input,stdout as output} from 'node:process';
 import readline from 'node:readline/promises';
 const root=resolve(import.meta.dirname,'..');
-const cli=resolve(root,'node_modules','.bin',process.platform==='win32'?'genlayer.cmd':'genlayer');
+const cli=resolve(root,'node_modules','genlayer','dist','index.js');
 const rpc='https://studio.genlayer.com/api';
 function cliCall(args){
-  const p=spawnSync(cli,args,{cwd:root,encoding:'utf8',stdio:'inherit',shell:process.platform==='win32'});
+  const p=spawnSync(process.execPath,[cli,...args],{cwd:root,encoding:'utf8',stdio:'inherit'});
   if(p.status!==0) throw new Error(`GenLayer CLI failed: ${args.join(' ')}`);
 }
 try {
   if(!existsSync(cli)) throw new Error('Missing repository-local CLI: run npm install');
   const manifest=JSON.parse(readFileSync(resolve(root,'package.json'),'utf8'));
   if(manifest.devDependencies?.genlayer!=='0.39.1') throw new Error('CLI pin changed');
-  const v=spawnSync(cli,['--version'],{cwd:root,encoding:'utf8',shell:process.platform==='win32'});
+  const v=spawnSync(process.execPath,[cli,'--version'],{cwd:root,encoding:'utf8'});
   const vs=(v.stdout||'')+' '+(v.stderr||'');
   if(v.status!==0||!/(^|\D)0\.39\.1(\D|$)/.test(vs)) throw new Error('Require GenLayer CLI exactly 0.39.1');
   const rpcRes=await fetch(rpc,{method:'POST',headers:{'content-type':'application/json'},

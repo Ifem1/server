@@ -43,13 +43,17 @@ Strict typecheck completed with zero diagnostics for each contract. Static `Prot
 - `genvm-lint check`, `validate`, `typecheck`, and `schema` exercise the pinned source against the selected official SDK runner artifact; they do not deploy or prove consensus finalization.
 - `npm run network:guard` queries StudioNet's RPC chain ID and verifies 61999. A successful guard alone is not deployment evidence.
 
+## Direct Mode bundle-name compatibility
+
+The official `v0.3.0-rc7` release publishes the 134 MB runner archive as `genvm-runners-all.tar.xz`. Linter 0.11.0 recognizes that current asset name, but Direct Mode 0.29.0 still requests the removed generic `genvm-universal.tar.xz` URL. CI caches the linter's downloaded official archive and copies the exact same bytes into Direct Mode's versioned cache filename. This addresses the old download URL only; the SDK artifact and the contracts' pinned dependency hash do not change.
+
 ## Windows Direct Mode note
 
 `gltest-direct==0.29.0` unlinks its stdin message tempfile while Windows still has that file locked. `direct_tests/conftest.py` defers deletion only for this specific Windows sharing violation; it passes the same SDK input and does not alter assertions or contract behavior.
 
 ## Live evidence
 
-No live deployment, finalized transaction, validator trace, deployed source match, or real consumer integration is claimed in this repository until its transaction records are captured and independently checked. A deployment address by itself is not proof of successful contract execution or consensus finality.
+One Sever contract deployment and one draft-agreement creation transaction have been finalized on StudioNet. The deployment source was retrieved from chain and matched to its source commit. The agreement remains unsealed and uncertified; there is no consumer deployment, semantic dependency certification, clause invalidation, or live consumer call evidence. The RPC does not expose the CLI's debug trace method. See `docs/DEPLOYMENT.md` for exact hashes and statuses. Do not treat the successful deployment's consensus as proof of Sever's semantic agreement flow.
 
 ## Verification run
 

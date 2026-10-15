@@ -29,6 +29,12 @@ jobs:
         with:
           node-version: '22'
           cache: npm
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/genvm-linter
+            ~/.cache/gltest-direct
+          key: genvm-runners-v0.3.0-rc7-${{ runner.os }}
       - run: python -m pip install -r requirements-dev.txt
       - run: npm ci
       - run: ./node_modules/.bin/genlayer --version
@@ -42,4 +48,9 @@ jobs:
       - run: genvm-lint validate contracts/sever_consumer_example.py
       - run: genvm-lint typecheck contracts/sever_consumer_example.py --strict
       - run: genvm-lint schema contracts/sever_consumer_example.py --output artifacts/sever-consumer-abi.json
+      - name: Share the pinned official runner bundle with Direct Mode
+        run: |
+          mkdir -p "$HOME/.cache/gltest-direct"
+          cp "$HOME/.cache/genvm-linter/genvm-universal-v0.3.0-rc7.tar.xz" \
+            "$HOME/.cache/gltest-direct/genvm-universal-v0.3.0-rc7.tar.xz"
       - run: gltest direct_tests -v -s

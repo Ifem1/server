@@ -53,7 +53,7 @@ The official `v0.3.0-rc7` release publishes the 134 MB runner archive as `genvm-
 
 ## Live evidence
 
-One Sever contract deployment and a draft-agreement creation transaction have been finalized on StudioNet. The deployment source was retrieved from chain and matched to its source commit. The draft now has two parties but remains unsealed with zero clauses; there is no ratification, semantic dependency certification, clause invalidation, consumer deployment, or live consumer-call evidence. The RPC does not expose the CLI's debug trace method. See `docs/DEPLOYMENT.md` for exact hashes and statuses. Do not treat the successful deployment's consensus as proof of Sever's semantic agreement flow.
+Sever is deployed and source-matched on StudioNet. Agreement 1 has two parties, five clauses, a sealed genesis, unanimous ratification, and active state. Two full-matrix dependency certification transactions finalized with `MAJORITY_DISAGREE` after four rounds each; the last round had three `DISAGREE` votes and two `IDLE` votes. The agreement remains uncertified, so no live invalidation or consumer deployment/call has been demonstrated. See `docs/DEPLOYMENT.md` for exact transaction hashes and states. Deployment or agreement-write consensus does not prove semantic dependency certification succeeded.
 
 ## Verification run
 

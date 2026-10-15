@@ -53,7 +53,7 @@ The official `v0.3.0-rc7` release publishes the 134 MB runner archive as `genvm-
 
 ## Live evidence
 
-Sever is deployed and source-matched on StudioNet. Agreement 1 has two parties, five clauses, a sealed genesis, unanimous ratification, and active state. Two full-matrix dependency certification transactions finalized with `MAJORITY_DISAGREE` after four rounds each; the last round had three `DISAGREE` votes and two `IDLE` votes. The agreement remains uncertified, so no live invalidation or consumer deployment/call has been demonstrated. See `docs/DEPLOYMENT.md` for exact transaction hashes and states. Deployment or agreement-write consensus does not prove semantic dependency certification succeeded.
+Sever is deployed and source-matched on StudioNet. Agreement 1 has two parties, five clauses, a sealed genesis, unanimous ratification, and active state. Agreement 2 has two parties, the approved six-clause report dependency chain, a sealed genesis, unanimous ratification, and active state. Both agreements' dependency certification transactions finalized with `MAJORITY_DISAGREE` after four rounds; their final rounds each had three `DISAGREE` votes and two `IDLE` votes. Both remain uncertified, so no live invalidation or consumer deployment/call has been demonstrated. StudioNet's CLI cannot calculate the appeal bond because its fee-manager/rounds-storage contracts are missing. See `docs/DEPLOYMENT.md` for exact transaction hashes and states. Deployment or agreement-write consensus does not prove semantic dependency certification succeeded.
 
 ## Verification run
 

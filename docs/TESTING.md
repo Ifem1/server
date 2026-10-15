@@ -64,6 +64,6 @@ On 2026-10-15, the Windows local toolchain produced these results:
 - Direct Mode: **9 passed**; model and consumer provider responses are mocked as described above.
 - For each contract, `check` passed all three lint checks, `validate` passed (Sever: 20 methods; consumer: 2 methods), strict typecheck reported no type errors, and schema generation succeeded.
 - Local CLI reported **0.39.1**. The RPC guard independently verified StudioNet chain ID **61999**.
-- `npm audit --omit=dev` found **0 production dependency vulnerabilities**. The full audit endpoint was intermittently unavailable; development-only dependency findings were not certified by that production-only query.
+- `npm audit --omit=dev` found **0 production dependency vulnerabilities**. Initial npm installation reported **six development dependency advisories** (four moderate, two critical); a later full audit request failed at the npm advisory endpoint, so those advisories remain untriaged.
 
-These are local tool results, not GitHub Actions status or public-network transaction evidence.
+These local results are distinct from the public-chain evidence above. GitHub Actions also passed for commit `2e60e870f1334de692c36513ce5ecf9b0d59ad92` in [run 38784650281](https://github.com/Ifem1/server/actions/runs/38784650281); that run includes the corrected GenVM runner cache path.

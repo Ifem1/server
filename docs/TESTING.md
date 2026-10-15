@@ -53,7 +53,7 @@ The official `v0.3.0-rc7` release publishes the 134 MB runner archive as `genvm-
 
 ## Live evidence
 
-One Sever contract deployment and one draft-agreement creation transaction have been finalized on StudioNet. The deployment source was retrieved from chain and matched to its source commit. The agreement remains unsealed and uncertified; there is no consumer deployment, semantic dependency certification, clause invalidation, or live consumer call evidence. The RPC does not expose the CLI's debug trace method. See `docs/DEPLOYMENT.md` for exact hashes and statuses. Do not treat the successful deployment's consensus as proof of Sever's semantic agreement flow.
+One Sever contract deployment and a draft-agreement creation transaction have been finalized on StudioNet. The deployment source was retrieved from chain and matched to its source commit. The draft now has two parties but remains unsealed with zero clauses; there is no ratification, semantic dependency certification, clause invalidation, consumer deployment, or live consumer-call evidence. The RPC does not expose the CLI's debug trace method. See `docs/DEPLOYMENT.md` for exact hashes and statuses. Do not treat the successful deployment's consensus as proof of Sever's semantic agreement flow.
 
 ## Verification run
 

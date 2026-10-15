@@ -1,0 +1,321 @@
+{
+  "ctor": {
+    "params": [],
+    "kwparams": {}
+  },
+  "methods": {
+    "activate_agreement": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "null",
+      "payable": false
+    },
+    "add_clause": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ],
+        [
+          "name",
+          "string"
+        ],
+        [
+          "text",
+          "string"
+        ],
+        [
+          "essential",
+          "bool"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "int",
+      "payable": false
+    },
+    "add_party": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ],
+        [
+          "party",
+          "address"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "null",
+      "payable": false
+    },
+    "agreement_head": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "string"
+    },
+    "certify_dependencies": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ],
+        [
+          "expected_genesis",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "string",
+      "payable": false
+    },
+    "create_agreement": {
+      "params": [
+        [
+          "title",
+          "string"
+        ],
+        [
+          "purpose",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "int",
+      "payable": false
+    },
+    "endorse_invalidation": {
+      "params": [
+        [
+          "failure_id",
+          "int"
+        ],
+        [
+          "expected_head",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "null",
+      "payable": false
+    },
+    "finalize_invalidation": {
+      "params": [
+        [
+          "failure_id",
+          "int"
+        ],
+        [
+          "expected_head",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "string",
+      "payable": false
+    },
+    "get_agreement": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": {
+        "$dict": "any"
+      }
+    },
+    "get_clause": {
+      "params": [
+        [
+          "clause_id",
+          "int"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": {
+        "$dict": "any"
+      }
+    },
+    "get_failure": {
+      "params": [
+        [
+          "failure_id",
+          "int"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": {
+        "$dict": "any"
+      }
+    },
+    "get_graph": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": {
+        "$dict": "any"
+      }
+    },
+    "get_vote": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ],
+        [
+          "party",
+          "address"
+        ],
+        [
+          "failure_id",
+          "int"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": {
+        "$dict": "any"
+      }
+    },
+    "is_agreement_fully_operative": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ],
+        [
+          "expected_genesis_hash",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "bool"
+    },
+    "is_agreement_operative": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ],
+        [
+          "expected_genesis_hash",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "bool"
+    },
+    "is_clause_operative": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ],
+        [
+          "clause_id",
+          "int"
+        ],
+        [
+          "expected_genesis_hash",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "bool"
+    },
+    "propose_invalidation": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ],
+        [
+          "clause_id",
+          "int"
+        ],
+        [
+          "reason",
+          "string"
+        ],
+        [
+          "expected_head",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "int",
+      "payable": false
+    },
+    "ratify_agreement": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ],
+        [
+          "expected_genesis",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "null",
+      "payable": false
+    },
+    "reject_invalidation": {
+      "params": [
+        [
+          "failure_id",
+          "int"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "null",
+      "payable": false
+    },
+    "seal_agreement": {
+      "params": [
+        [
+          "agreement_id",
+          "int"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "string",
+      "payable": false
+    }
+  }
+}

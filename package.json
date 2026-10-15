@@ -1,0 +1,16 @@
+{
+  "name": "sever-intelligent-contract",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sever: consent-owned semantic severability primitive for GenLayer StudioNet",
+  "scripts": {
+    "cli:version": "genlayer --version",
+    "network:select": "genlayer network set studionet",
+    "network:info": "genlayer network info",
+    "network:guard": "node scripts/assert_studionet.mjs",
+    "deploy:guarded": "node scripts/deploy_studionet.mjs",
+    "deploy:consumer:guarded": "node scripts/deploy_consumer_studionet.mjs",
+    "test:offline": "python -m pytest tests -q"
+  },
+  "devDependencies": {"genlayer": "0.39.1"}
+}

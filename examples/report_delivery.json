@@ -1,0 +1,16 @@
+{
+  "title":"Delivery and independent training",
+  "purpose":"Provider delivers a report, is paid upon report acceptance, supports that report for 30 days, and separately supplies an independent training class.",
+  "clauses":[
+    {"label":"Delivery","text":"Provider delivers the commissioned report to Customer on Friday.","essential":false},
+    {"label":"Acceptance payment","text":"Customer pays Provider when Customer accepts the report delivered under the Delivery clause.","essential":false},
+    {"label":"Report support","text":"Provider supports the delivered report for 30 days after acceptance.","essential":false},
+    {"label":"Independent training","text":"Provider gives an independent Python workshop unrelated to report delivery or acceptance.","essential":false}
+  ],
+  "hypothesis":{
+    "invalid_clause":"Delivery",
+    "expected_dependency_direction":[["Acceptance payment","Delivery"],["Report support","Delivery"]],
+    "expected_outcome":{"Delivery":"INVALID","Acceptance payment":"SUSPENDED","Report support":"SUSPENDED","Independent training":"ACTIVE"}
+  },
+  "note":"Fixture expectations are educational hypotheses, not real model consensus receipts or court findings."
+}

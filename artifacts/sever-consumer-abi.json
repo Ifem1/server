@@ -1,0 +1,38 @@
+{
+  "ctor": {
+    "params": [
+      [
+        "sever_address",
+        "address"
+      ],
+      [
+        "agreement_id",
+        "int"
+      ],
+      [
+        "clause_id",
+        "int"
+      ],
+      [
+        "genesis_hash",
+        "string"
+      ]
+    ],
+    "kwparams": {}
+  },
+  "methods": {
+    "action_count": {
+      "params": [],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "int"
+    },
+    "do_clause_bound_action": {
+      "params": [],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "null",
+      "payable": false
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+artifacts/*
+!artifacts/sever-abi.json
+!artifacts/sever-consumer-abi.json
+coverage/
+.DS_Store

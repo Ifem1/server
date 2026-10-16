@@ -1,67 +1,68 @@
-# StudioNet deployment evidence
+# StudioNet deployment and lifecycle evidence
 
-## Network and deployed source
+All transactions below were submitted to stable StudioNet, chain ID `61999`, using the repository-local GenLayer CLI `0.39.1`. A receipt marked `ACCEPTED` by the CLI is finalized for this network. Validator vote labels describe GenLayer's consensus result; they do not imply every validator independently agrees with every semantic classification.
 
-| Field | Evidence |
+## Deployed source
+
+| Field | Value |
 |---|---|
-| Network | StudioNet, chain ID `61999` |
-| RPC | `https://studio.genlayer.com/api` |
-| CLI | Repository-local GenLayer CLI `0.39.1` |
-| Sever address | `0x83766112084fBEA07873b241Cf37e770438d928C` |
-| Deploy transaction | `0x3664fa80c05a7e608a8a455d8655abb7f2d9107f3e6f1f893f97a25a4dc6d5e2` |
-| Source commit used for deployment | `973dc494d3e3c396c770e62cd3c1bb485083f55e` |
-| Canonical deployed source SHA-256 | `840b0e3a64c8e018d3f884396eab982cf10e7523d1c7aa3402cbb3a875297158` |
+| Sever contract | `0x631fF4E9C44f8AD5496Ea5EeC10B3c476aA0c1CD` |
+| Deployment transaction | `0x36ede6be2268f582d81f1948d0121bf5da131217cb9357624ec216bb10929654` |
+| Canonical deployed source SHA-256 | `6dc67c8eb662137a085ef39c868a71d1c32779456893e7c8031ea42479b310ac` |
+| Local source SHA-256, LF normalized | `6dc67c8eb662137a085ef39c868a71d1c32779456893e7c8031ea42479b310ac` |
+| Consumer source SHA-256, LF normalized | `d92133f0ec3ff0079591227697dd2028f1155176025b5cdcd89d9d6781610d27` |
 
-The CLI receipt reached `FINALIZED` with `MAJORITY_AGREE`; the round showed five validator commits and five reveals. The leader receipt reports GenVM `SUCCESS`, with no error code or description. The repository-local CLI `code` command retrieved the deployed contract source. After normalizing line endings to LF and using one terminal newline, the retrieved text matched both the worktree and the listed source commit byte-for-byte under the same normalization; the SHA-256 above was computed over that canonical UTF-8 text.
+The deployed source was retrieved with the GenLayer CLI `code` command. Normalizing the retrieved and local UTF-8 source to LF with one final newline produced identical bytes. The separate CLI `trace` endpoint is unavailable on this RPC (`gen_dbg_traceTransaction` returns `Method not found`); finalized receipts provide transaction and execution evidence.
 
-The CLI `trace` command could not retrieve a trace because this RPC returns `Method not found` for `gen_dbg_traceTransaction`. The receipt's leader execution result and consensus status are available, but a separate detailed execution trace is not.
+## Real validator disagreement investigation
 
-## Agreement 1 lifecycle evidence
+These three whole-matrix certification transactions all finalized `MAJORITY_DISAGREE` after four rounds, with three `DISAGREE` and two `IDLE` votes in the last round:
 
-Agreement ID `1` is titled `Sever live integration 2026`. Its creation transaction is `0x2a5c9d07d36ca8b077d5d99f76be98e6b3520afbca85b9541b5cffe72d4b8e12`. The creator added local demo alias `aase-deployer` (`0x3926627eb9d353e29c7d6f8f914be96f38631bab`) as its second party in transaction `0x8ff1dfeecc16c049104a00d9fb824537b2ec3fca67ca4582b2d9f401ed5563b4`; that receipt reported `MAJORITY_AGREE`, five validator commits/reveals, and leader GenVM `SUCCESS`.
+| Agreement | Transaction | Finding |
+|---:|---|---|
+| 1 | `0xf3d29dbb167a7a329f3e646feeaafc1cec0aa08252b57a5e4cc15da4745640c5` | Validators did not accept the leader's full-matrix result. |
+| 1 | `0x63a51a159b896c49bb5a280294c4af9b8f34dce9243639861dd9211d5d36fd80` | Repeat attempt on the same sealed terms still disagreed. |
+| 2 | `0x98ae3c499395fbe6f97534fa41d92666c3a4b6eada4fd3d485bec33d7b256eb7` | Revised six-clause matrix still disagreed. |
 
-The creator wallet transferred exactly 5 GEN to `aase-deployer` for its transaction fees. The unitless CLI argument `5` first submitted `0xc14b7604f06ff3ad3a2fc4722730858eb6fe990da622d4e673d093d0875e1fcd`, which finalized with 5 wei credited. Transaction `0xf8f8e525a77de18eca88da224cfe2bfe4dc949341b38737f8e74314ff90a62ee` then transferred the remaining `4.999999999999999995 GEN`; its finalized receipt reports `value_credited=true`. The two transfers total exactly 5 GEN. The alias balance read afterward was 15 GEN, including its pre-existing 10 GEN.
+These are live StudioNet receipts from the deployed semantic validator path, not mock responses. The initial implementation asked independent validators to accept an entire directed matrix in one consensus round. The observed failures established that a single disputed relationship could block all graph progress. Bounded, epoch-pinned pair batches reduce the consensus unit while retaining independent classification, complete ordered-pair coverage, and fail-closed `UNCERTAIN` handling. No disputed marker is counted toward a certified graph.
 
-The user approved the exact synthetic clauses and essential flags below. Each add-clause write finalized with `MAJORITY_AGREE`, five validator commits/reveals, and successful leader execution:
+## Agreement 3: four-clause bounded certification
 
-| ID | Name | Essential | Text | Transaction |
-|---:|---|---|---|---|
-| 1 | Essential acceptance | Yes | Customer's ability to accept the report delivered under clause 2 is essential to this synthetic agreement. | `0x4cb5ae45a6fd54f606f669a8c12290097fd8e1ed4e9e83be85e2c431c7c7fe81` |
-| 2 | Delivery | No | Provider delivers one report to Customer on Friday. | `0xbafbdaa1c5e34efd05dcc175bad4e10f98c2cecf33ea0e89690c16a19f9b3a2d` |
-| 3 | Acceptance payment | No | Customer pays Provider only after accepting the report delivered under clause 2. | `0x8313c75abeb394bc4216cdf63bcca789d88403327de7aef109865c61b4a464f6` |
-| 4 | Report support | No | Provider supports the report after payment under clause 3 for 30 days. | `0xd6f6f1e61064e73ab653f2507332e1b48184a498a40ef9f4142358ae67251a72` |
-| 5 | Independent workshop | No | Provider supplies an independent Python workshop unrelated to report delivery, payment, or support. | `0x989d96c00f879df88c2a6032bafd26bcc40db662871ed1de0063f3cebfc1480a` |
+Agreement 3 is titled `Sever final direct dependency lifecycle 2026`. Both parties ratified genesis `f627295027e8570445d8b142622dcf3277a74da3b4fbc7a689f8c516f76ea6e5`; activation fixed epoch `a7a3f27b0de0c24420b96fa552f6de876baf3177977abaf051c5c848aad0b92d`. Its 12 directed pair transactions are recorded in [final-pair-certification.txt](../artifacts/final-pair-certification.txt). All 12 markers are true in that same epoch. Finalization transaction `0x3ad1ec16b8fcae7c4bb1706f64763e558132e5df56ea90896245f06e3531e0be` committed graph hash `1949666fb48ffa8408ddbcc1bb207ea3fb75bd75a1e8bfc50c3409a8f2bbabfa`.
 
-The seal transaction `0x8e167b174b0910cda47c9b07b2c9a32e81c97b45a3d3992d302879613912101d` finalized with `MAJORITY_AGREE` and successful leader execution. Its genesis hash is `bfdeac51cb7c664791500b5a005342fc71637aa4bfd98cbbc902f7f054ff788c`. Both parties ratified the same hash: second-party transaction `0x8f11b76d1302446a1cd79a694be748c4a05bb5ddd34303fdaa1760af770c9c44`, creator transaction `0x4f27269d08ee3b017170a0d27c8cae7288f17fcedb4122943a844f7e3a072f36`. Both finalized successfully; `get_vote` returned `ratified=true` for each party. Activation transaction `0xfc23504455b1f4d1e890e97dbb984100d09ff924f80dac41562f8d0070c1cdaa` finalized with `MAJORITY_AGREE`, five commits/reveals, and successful execution. The agreement is sealed and active.
+The onchain graph includes required edges and a conservative `UNCERTAIN` edge (`10 → 12`); uncertainty is preserved as potentially dependent. The independent workshop edges remain explicitly classified. Agreement 3 demonstrates that all 12 relationships can be certified in bounded transactions before one graph finalization.
 
-## Live dependency certification result
+## Agreement 4: complete invalidation and consumer lifecycle
 
-Two live `certify_dependencies(1, genesis_hash)` attempts were made against the unchanged sealed agreement:
+Agreement 4 is titled `Sever compact lifecycle 2026`. It uses explicit immutable IDs:
 
-| Transaction | Final result | Consensus rounds | Last-round votes |
-|---|---|---:|---|
-| `0xf3d29dbb167a7a329f3e646feeaafc1cec0aa08252b57a5e4cc15da4745640c5` | `FINALIZED`, `MAJORITY_DISAGREE` | 4 | 3 `DISAGREE`, 2 `IDLE` |
-| `0x63a51a159b896c49bb5a280294c4af9b8f34dce9243639861dd9211d5d36fd80` | `FINALIZED`, `MAJORITY_DISAGREE` | 4 | 3 `DISAGREE`, 2 `IDLE` |
+| ID | Clause | Frozen text | Status after invalidation |
+|---:|---|---|---|
+| 14 | Report preparation | Provider prepares one report from Customer's public dataset. This is the specific report delivered under Clause ID 15. | `INVALID` |
+| 15 | Report delivery | Provider delivers to Customer the report prepared under Clause ID 14. If Clause ID 14 is inoperative, this delivery duty cannot be performed. | `SUSPENDED` |
+| 16 | Independent workshop | Provider delivers a separately priced Python workshop with independent scope. It does not require or depend on Clauses 14 or 15 and remains performable if either is inoperative. | `ACTIVE` |
 
-Both leader GenVM executions reported `SUCCESS`, but validators did not agree on the complete dependency matrix. A final `get_agreement(1)` read showed `active=true`, `certified=false`, empty `graph_hash`, no invalidations, and version `0`; `get_graph(1)` failed with `NOT_CERTIFIED`, as expected. The CLI cannot calculate an appeal bond on this chain because the configured fee-manager/rounds-storage contracts are missing. No more certification attempts were made. Since the agreement is uncertified, no invalidation, clause status transition, or consumer deployment/call is claimed. The sealed terms cannot be edited; a revised agreement would need separately approved wording.
+The agreement's creation transaction is `0xe1e32df0eb5671948ba27cd4ae01092679e091851fad0b2b639032d1989dd213`; Aase was added in `0x78e8ef47aeaeffe2005a8b8b405c4a3317c5dff5c9461a6ce2b7125cebb5ced1`. Clause transactions were `0x96ab3a3ad66186c95d720f26caf389555e82e7b07a51caf3a0ad27404f76c8f7` (14), `0x7f2a9ef11461b21e6d53514ccb2e1338d58a754ac474f2656a84d6e223b4e220` (15), and `0xa5594b154dfc4eef03a4300d4c2a251ed8f9bfee128e41a0c396a59514a51564` (16). Seal transaction `0xdb04688c9ab4fdb7b06bc7fd54f14168fc6b146b6d14f28e30399c40a7e7e1e5` committed genesis `6b31263cdb7658072c7788dcc6f935ef1f0f7fc0eaea0d18a6cc515069bbb0f7`. Aase ratified in `0xf962cc4d98c33e2e5cdf074d68ea8e07e7d665b389af0a106666b66c33807b98`; the creator ratified in `0x8f2d09fd43487c2496efffb7177166843b039e78657973e13e6433232044749c`. Activation transaction is `0xf310f34e22a0020b94e4b1d45cd0ee49954cbb522486ab794c32d1ca12146a8e`.
 
-The CLI `trace` command could not retrieve detailed traces because the RPC returns `Method not found` for `gen_dbg_traceTransaction`. No credentials or private keys are included in this repository.
+The six directed pairs finalized in one round each with `MAJORITY_AGREE`:
 
-## Agreement 2 retry lifecycle evidence
+| Pair index | IDs | Transaction | Last-round votes |
+|---:|---|---|---|
+| 0 | 14 → 15 | `0x46bcc13b82edc47b496b61a1f4ff63c7d2270d07e28804c1e9aa59b4d8a50e60` | 3 agree, 2 idle |
+| 1 | 14 → 16 | `0x4f7a6d4426737f672ceb24c66bdfe3a7fa133792e0c8cb4f9be07885ad1e53b5` | 3 agree, 2 idle |
+| 2 | 15 → 14 | `0x5727f92daff117b39762f8d2c530d797b251f673728fcc4984c543f9cd2345a7` | 3 agree, 2 idle |
+| 3 | 15 → 16 | `0x1b160eb591c107919208557b4a26058464f589b7097f911b02900e0dea35b5f7` | 3 agree, 2 idle |
+| 4 | 16 → 14 | `0xdd8492069de93f5e0e9867dc1e2117c532bcd2482b6e28d3089ef2b707a34dee` | 3 agree, 1 disagree, 1 idle |
+| 5 | 16 → 15 | `0x9c395d21225ba6101e70c8e32bdfd743d25a29c1ef43e7eb9f644299177ba8cc` | 3 agree, 2 idle |
 
-After the first agreement remained uncertified, the user approved a second synthetic package with a revised six-clause chain. Agreement ID `2` was created by transaction `0x9529b895c2752c29093097bc97e55ad92a4a3b00c1ad63cc575eb459da004629`; it finalized with `MAJORITY_AGREE` and leader execution `SUCCESS`. Its title is `Sever live integration 2026 retry` and its purpose is `Synthetic test of a report dependency chain, indirect essential-clause collapse, payment invalidation, and independent workshop survival.` Aase (`0x3926627eb9d353e29c7d6f8f914be96f38631bab`) was added by `0xff7d17084497556f9660080fbf40a625510460c5db7b5167b7b925d40b8a8918`.
+Finalization transaction `0xec4a96f4e4d3943f881b64df8f06766c30877a731634bdce341a96f3aed63795` committed graph hash `8254945f56aa6a37bade8351ac8f3821a25e822f6f0a1ded49e58d1a3723749a`. `get_graph(4)` returned `14 → 15 REQUIRES`, with the other five relationships `INDEPENDENT`.
 
-All six exact approved clauses finalized with `MAJORITY_AGREE`, five validator commits/reveals, and successful leader execution:
+The pinned consumer was deployed at `0xf2DE8057a2416307C7F77cd62365E15E8A880caA` in transaction `0xbd3eab8bc7899b8f50f4def45ab63c348628243c2750b2f447f4dacbe6bab739`, bound to Sever, agreement 4, clause 15, and the exact genesis hash. Its action transaction `0x605ef7a734cee097200b78ef1868e0b1e94f183fb8740b1bc19f9d8f42531aea` succeeded while the clause was operative.
 
-| ID | Name | Essential | Text | Transaction |
-|---:|---|---|---|---|
-| 6 | Source data access | No | Provider grants Customer access to the source data needed for the report under clause 2. | `0x01b737a2f01acc9f766738fc4a11d673d9275a105a521f34bac1f2efb6e8935b` |
-| 7 | Data processing | No | Provider processes Customer's source data using the access granted under clause 1 to produce the report under clause 3. | `0x5daf8df4ef291018f7fa1a44e7f4a258b8a86f0fdd04431057deeb15a6674630` |
-| 8 | Report delivery | Yes | Provider delivers the report produced under clause 2; delivery is essential to this synthetic agreement. | `0x97cc429818c260dcf893e9772a99981d6a4bd61793f66472e38ad65b2c510c3b` |
-| 9 | Acceptance payment | No | Customer pays Provider only after accepting the report delivered under clause 3. | `0xfded5fc505a4304c65de13e883c21083dbba1245db82df2ef0cc9ff9d4599b3c` |
-| 10 | Report support | No | Provider supports the report after payment under clause 4 for 30 days. | `0x8d6b688984e866b96d008ad1be72ab8b8142b3adf5a4d5e58d224754f66249cd` |
-| 11 | Independent workshop | No | Provider supplies an independent Python workshop unrelated to source data access, processing, report delivery, payment, or support. | `0x6747cc67cd10e625f9debf97da6edfc0bb9dbef5f7e7a61651319061718d155f` |
+The invalidation proposal transaction `0x9ae1e3da2073d038a518974a9489fbb986a0fb7a4f9ab55a650f1573e4c3e5e7` targeted clause 14 at the current head. The other party endorsed failure ID 1 in `0x164e38944c6efd6fbc24c1241b908919ea33bf13c998374acc163720c1675dad`. Finalization transaction `0xf950bc37bfdd73c2d6373d17fd01991d31e7d0e0d350060a9be95cf3f5f29c6c` produced the states above. Live views returned false for clause 15 and true for clause 16.
 
-On-chain reads confirmed parties `[creator, Aase]`, clause IDs `[6, 7, 8, 9, 10, 11]`, and essential IDs `[8]`. The agreement was sealed by `0x7dfec18bcdafa81979ccc5e6e424102a41ccd86410a9d0bf1a969de613b5250d`; its genesis hash is `b71d48c1e96f8611491272a329ef10ab27f49bd5b1105938467dc78ff95e3293`. Aase ratified in `0xcd947cb290cf862fba84897547d96ce5f06456d404d4c730c0da5f70fe60caf0`, and the creator ratified in `0x0ae6d851541a96f1f49b6336aa2949fa222a1d3c5955e248f5798f086feac9f4`. Activation transaction `0x7bdb2386d23625832349622f57327834700885f129d9948ceab9b64516d112f1` finalized successfully.
+After invalidation, the same consumer's action transaction `0xf1deceb415bd13ee778ab72e6e925f66ddc89d5ccfa252466ba8b6691330423c` rolled back with `SEVER_CLAUSE_NOT_OPERATIVE`. Its `action_count()` stayed at `1`, confirming the failed action did not change consumer state. This completes the certified graph → unanimous invalidation → dependent suspension → independent survival → consumer acceptance and rejection lifecycle.
 
-The revised dependency-certification attempt `0x98ae3c499395fbe6f97534fa41d92666c3a4b6eada4fd3d485bec33d7b256eb7` finalized `MAJORITY_DISAGREE` after four rounds; the last round had three `DISAGREE` and two `IDLE` votes. A state read confirmed agreement 2 remains sealed and active but `certified=false`, `graph_hash=''`, `version=0`, with zero invalidations and no pending proposal. The CLI cannot calculate an appeal bond on StudioNet because the configured fee-manager/rounds-storage contracts are missing. Since certification did not succeed, no invalidation, clause propagation, or live consumer operation was submitted. Both agreements therefore remain uncertified on StudioNet; the synthetic invalidation/consumer lifecycle is not demonstrated as complete.
+## Earlier agreements
+
+Agreements 1 and 2 and their initial failed certification attempts are retained as historical diagnostics. Their sealed terms remain immutable and their certification failures did not change their uncertified state. The successful Agreement 3 and Agreement 4 evidence above supersedes any earlier statement that no live lifecycle was demonstrated. No wallet keys or credentials are stored in this repository.

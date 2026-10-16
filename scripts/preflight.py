@@ -12,7 +12,10 @@ def ck(test,description):
 ast.parse(core);ast.parse(consumer)
 ck(True,'Python syntax parses')
 ck(core.count('gl.vm.run_nondet_unsafe(')==1,'one custom substantive consensus boundary')
-ck('INDEPENDENT FULL MATRIX' in core,'independent reclassification of full matrix')
+ck('INDEPENDENT BOUNDED PAIR' in core and 'one-directed-pair' in core,
+   'independent reclassification of each bounded pair')
+ck('certification_epoch' in core and 'CERTIFICATION_INCOMPLETE' in core,
+   'one immutable epoch requires complete batch coverage before certification')
 ck('ADVERSARIAL DEPENDENCY AUDIT' in core,'counterexample search on survival edges')
 ck('expected_pairs' in core and 'INCOMPLETE_MATRIX' in core,'no omitted matrix pairs')
 ck('CLAUSE_SUSPENDED' in core and 'UNCERTAIN' in core,'uncertainty fails closed')

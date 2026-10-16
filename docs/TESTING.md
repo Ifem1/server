@@ -53,17 +53,16 @@ The official `v0.3.0-rc7` release publishes the 134 MB runner archive as `genvm-
 
 ## Live evidence
 
-Sever is deployed and source-matched on StudioNet. Agreement 1 has two parties, five clauses, a sealed genesis, unanimous ratification, and active state. Agreement 2 has two parties, the approved six-clause report dependency chain, a sealed genesis, unanimous ratification, and active state. Both agreements' dependency certification transactions finalized with `MAJORITY_DISAGREE` after four rounds; their final rounds each had three `DISAGREE` votes and two `IDLE` votes. Both remain uncertified, so no live invalidation or consumer deployment/call has been demonstrated. StudioNet's CLI cannot calculate the appeal bond because its fee-manager/rounds-storage contracts are missing. See `docs/DEPLOYMENT.md` for exact transaction hashes and states. Deployment or agreement-write consensus does not prove semantic dependency certification succeeded.
+The deployed source is retrieved from StudioNet and byte-matches the local source after LF normalization. Three earlier whole-matrix transactions finalized `MAJORITY_DISAGREE`; their real validator vote receipts motivated one directed pair per bounded batch in a fixed epoch. Agreement 3 then finalized a complete 12-pair graph. Agreement 4 finalized a complete six-pair graph, followed by unanimous clause invalidation, dependent-clause suspension, independent-clause survival, and a live pinned consumer action that succeeded before invalidation and rolled back afterward without changing its counter. Exact hashes, statuses, source hashes and graph values are recorded in `docs/DEPLOYMENT.md`.
 
 ## Verification run
 
-On 2026-10-15, the Windows local toolchain produced these results:
+On 2026-10-16, the Windows local toolchain produced these results:
 
-- Static preflight: **13/13 passed**.
+- Static preflight: **14/14 passed**.
 - Offline deterministic/adversarial suite: **21 passed**.
 - Direct Mode: **9 passed**; model and consumer provider responses are mocked as described above.
-- For each contract, `check` passed all three lint checks, `validate` passed (Sever: 20 methods; consumer: 2 methods), strict typecheck reported no type errors, and schema generation succeeded.
+- For each contract, `check` passed all three lint checks, `validate` passed (Sever: 21 methods; consumer: 2 methods), strict typecheck reported no type errors, and ABI schema generation succeeded.
 - Local CLI reported **0.39.1**. The RPC guard independently verified StudioNet chain ID **61999**.
-- `npm audit --omit=dev` found **0 production dependency vulnerabilities**. Initial npm installation reported **six development dependency advisories** (four moderate, two critical); a later full audit request failed at the npm advisory endpoint, so those advisories remain untriaged.
 
-These local results are distinct from the public-chain evidence above. GitHub Actions also passed for commit `2e60e870f1334de692c36513ce5ecf9b0d59ad92` in [run 38784650281](https://github.com/Ifem1/server/actions/runs/38784650281); that run includes the corrected GenVM runner cache path.
+These local results are distinct from the public-chain evidence above. A new GitHub Actions result for this source revision is pending the final push; the earlier successful run is retained in repository history.

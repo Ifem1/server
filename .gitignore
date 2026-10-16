@@ -9,5 +9,7 @@ __pycache__/
 artifacts/*
 !artifacts/sever-abi.json
 !artifacts/sever-consumer-abi.json
+!artifacts/final-pair-certification.txt
+!artifacts/lifecycle-certification.txt
 coverage/
 .DS_Store

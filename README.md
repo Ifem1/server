@@ -25,11 +25,12 @@ Ratify: ALL named parties sign the same genesis hash
        ↓
 Activate
        ↓
-GenLayer leader: full ordered directed dependency matrix
+One immutable certification epoch: one directed pair per bounded batch
        ↓
-Validators: independently recompute EVERY material pair
+For every batch, validators independently classify all directed pairs
+and audit each proposed independent edge
        ↓
-Validator adversarial pass: search for hidden dependency omissions
+Deterministic finalizer requires all N × (N−1) pairs exactly once
        ↓
 Certified graph (immutable)
        ↓
@@ -81,7 +82,8 @@ If clause 1 were designated **essential** by the parties before signing, every o
 | `seal_agreement(agreement_id)` | Freeze genesis commitment; no further edits |
 | `ratify_agreement(agreement_id, genesis_hash)` | Each party personally signs exact contents |
 | `activate_agreement(agreement_id)` | Open only after all parties ratify |
-| `certify_dependencies(agreement_id, genesis_hash)` | One GenLayer semantic full-matrix consensus round |
+| `certify_dependency_batch(agreement_id, genesis_hash, batch_index)` | Independently certify one bounded directed pair in the activation-bound epoch |
+| `finalize_dependency_certification(agreement_id, genesis_hash)` | Require every batch and every directed pair before publishing the immutable graph |
 | `propose_invalidation(agreement_id, clause_id, reason, expected_head)` | A party opens a proposed stipulated invalidation |
 | `endorse_invalidation(failure_id, expected_head)` | Another party ratifies the same exact assertion |
 | `reject_invalidation(failure_id)` | Non-proposer vetoes a disputed assertion, opening slot clears |
@@ -128,7 +130,9 @@ npm run network:guard
 
 **Stable StudioNet only:** RPC `https://studio.genlayer.com/api`; chain **61999**, alias `studionet`. The CLI is pinned to `genlayer@0.39.1`. Each guarded deploy script checks the remote chain ID and requires a manual `DEPLOY-61999` confirmation. The consumer deploy guard also requires the Sever address, agreement ID, clause ID, and sealed genesis hash. The repository does not contain a wallet key.
 
-The offline tests use a small **mock GenLayer adapter** to verify deterministic state invariants and validator-logic shape. Direct Mode executes the real contract code with mocked LLM/model responses; its consumer case also mocks the provider response. Neither proves public-network semantic consensus or live consumer calls. Sever itself is deployed and source-matched on StudioNet. Both live agreements are sealed, ratified by two parties, and active, but all three full-matrix certification attempts ended in validator disagreement. They remain uncertified, so there is no live invalidation or consumer-call evidence. The second agreement is the approved revised six-clause report chain. See [deployment evidence](docs/DEPLOYMENT.md) and [test evidence](docs/TESTING.md) for exact transaction results and limitations.
+The current source is deployed at `0x631fF4E9C44f8AD5496Ea5EeC10B3c476aA0c1CD`; the retrieved onchain source matches `contracts/sever.py` at canonical SHA-256 `6dc67c8eb662137a085ef39c868a71d1c32779456893e7c8031ea42479b310ac`. Agreement 3 completed 12 bounded pair batches and Agreement 4 completed a full certified invalidation/consumer lifecycle on StudioNet. Exact finalized receipts and state snapshots are in [deployment evidence](docs/DEPLOYMENT.md).
+
+The offline tests use a small **mock GenLayer adapter** to verify deterministic state invariants and validator-logic shape. Direct Mode executes the real contract code with mocked LLM/model responses; its consumer case also mocks the provider response. Those checks do not prove public-network semantic consensus. See [deployment evidence](docs/DEPLOYMENT.md) for finalized StudioNet execution receipts and [test evidence](docs/TESTING.md) for test limits.
 
 ## Builder integration
 

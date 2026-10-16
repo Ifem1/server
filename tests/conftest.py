@@ -16,7 +16,7 @@ class StorageMap(dict):
     def get_or_insert_default(self,key):
         if key not in self:
             obj=self.value_type.__new__(self.value_type)
-            for name in ('parties','clause_ids','essential_ids','invalidations'):
+            for name in ('parties','clause_ids','essential_ids','invalidations','certification_batches'):
                 if name in getattr(self.value_type,'__annotations__',{}): setattr(obj,name,[])
             self[key]=obj
         return self[key]
@@ -113,9 +113,15 @@ def active(ctx):
     pairs=m.expected_pairs(ids)
     depends={(payment,delivery),(support,delivery)}
     matrix={'edges':[[x,y,'REQUIRES' if (x,y) in depends else 'INDEPENDENT'] for x,y in pairs]}
-    stub.queue(matrix)
-    graph=c.certify_dependencies(a,g)
-    stub.capture({'edges':[[x,y,m.REL_REQUIRES if r=='REQUIRES' else m.REL_INDEPENDENT] for x,y,r in matrix['edges']]})
-    stub.queue(matrix,{'ok':True})
-    assert stub.last_validator(stub.vm.Return(stub._proposed)) is True
+    for batch_index in range(len(m.expected_pairs(ids))):
+        row_pairs=m.batch_pairs(ids,batch_index)
+        row={'edges':[edge[:] for edge in matrix['edges'] if edge[:2] in row_pairs]}
+        stub.queue(row)
+        c.certify_dependency_batch(a,g,batch_index)
+        stub.capture({'edges':[[x,y,{'INDEPENDENT':m.REL_INDEPENDENT,
+            'REQUIRES':m.REL_REQUIRES,'UNCERTAIN':m.REL_UNCERTAIN}[r]]
+            for x,y,r in row['edges']]})
+        stub.queue(row,{'ok':True})
+        assert stub.last_validator(stub.vm.Return(stub._proposed)) is True
+    graph=c.finalize_dependency_certification(a,g)
     return m,c,stub,a,ids,g,graph

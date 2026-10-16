@@ -31,8 +31,14 @@ def fixture(direct_vm,direct_deploy,direct_alice,direct_bob):
 
 
 def cert(direct_vm,c,aid,genesis,m):
-    direct_vm.mock_llm(r'SEVER / LEADER FULL MATRIX',m)
-    return c.certify_dependencies(aid,genesis)
+    ids=sorted({x for edge in m['edges'] for x in edge[:2]})
+    for batch_index in range(len(m['edges'])):
+        pairs=m['edges'][batch_index][:2]
+        pairs=[pairs]
+        row={'edges':[edge[:] for edge in m['edges'] if edge[:2] in pairs]}
+        direct_vm.mock_llm(fr'SEVER / LEADER BOUNDED PAIR {batch_index}',row)
+        c.certify_dependency_batch(aid,genesis,batch_index)
+    return c.finalize_dependency_certification(aid,genesis)
 
 
 def test_sealed_ratification_and_head(direct_vm,direct_deploy,direct_alice,direct_bob):
@@ -72,8 +78,12 @@ def test_validator_independently_checks_every_edge(direct_vm,direct_deploy,direc
     c,a,ids,g,m=fixture(direct_vm,direct_deploy,direct_alice,direct_bob)
     cert(direct_vm,c,a,g,m)
     direct_vm.clear_mocks()
-    direct_vm.mock_llm(r'SEVER / INDEPENDENT FULL MATRIX',m)
-    direct_vm.mock_llm(r'SEVER / ADVERSARIAL DEPENDENCY AUDIT',{'ok':True})
+    ids=sorted({x for edge in m['edges'] for x in edge[:2]})
+    batch_index=len(m['edges'])-1
+    row_pairs=[m['edges'][batch_index][:2]]
+    row={'edges':[edge[:] for edge in m['edges'] if edge[:2] in row_pairs]}
+    direct_vm.mock_llm(fr'SEVER / INDEPENDENT BOUNDED PAIR {batch_index}',row)
+    direct_vm.mock_llm(fr'SEVER / ADVERSARIAL DEPENDENCY AUDIT BATCH {batch_index}',{'ok':True})
     assert direct_vm.run_validator() is True
 
 
@@ -81,10 +91,14 @@ def test_validator_rejects_hidden_dependency(direct_vm,direct_deploy,direct_alic
     c,a,ids,g,m=fixture(direct_vm,direct_deploy,direct_alice,direct_bob)
     cert(direct_vm,c,a,g,m)
     hostile={'edges':[row[:] for row in m['edges']]}
-    for row in hostile['edges']:
-        if row[:2]==[ids[2],ids[0]]:row[2]='REQUIRES'
+    dependency_pair=[ids[2],ids[0]]
+    batch_index=m['edges'].index(next(edge for edge in m['edges'] if edge[:2]==dependency_pair))
+    row_pairs=[dependency_pair]
+    row={'edges':[edge[:] for edge in hostile['edges'] if edge[:2] in row_pairs]}
+    for edge in row['edges']:
+        if edge[:2]==[ids[2],ids[0]]:edge[2]='REQUIRES'
     direct_vm.clear_mocks()
-    direct_vm.mock_llm(r'SEVER / INDEPENDENT FULL MATRIX',hostile)
+    direct_vm.mock_llm(fr'SEVER / INDEPENDENT BOUNDED PAIR {batch_index}',row)
     assert direct_vm.run_validator() is False
 
 
@@ -92,8 +106,12 @@ def test_validator_adversarial_veto(direct_vm,direct_deploy,direct_alice,direct_
     c,a,ids,g,m=fixture(direct_vm,direct_deploy,direct_alice,direct_bob)
     cert(direct_vm,c,a,g,m)
     direct_vm.clear_mocks()
-    direct_vm.mock_llm(r'SEVER / INDEPENDENT FULL MATRIX',m)
-    direct_vm.mock_llm(r'SEVER / ADVERSARIAL DEPENDENCY AUDIT',{'ok':False})
+    ids=sorted({x for edge in m['edges'] for x in edge[:2]})
+    batch_index=len(m['edges'])-1
+    row_pairs=[m['edges'][batch_index][:2]]
+    row={'edges':[edge[:] for edge in m['edges'] if edge[:2] in row_pairs]}
+    direct_vm.mock_llm(fr'SEVER / INDEPENDENT BOUNDED PAIR {batch_index}',row)
+    direct_vm.mock_llm(fr'SEVER / ADVERSARIAL DEPENDENCY AUDIT BATCH {batch_index}',{'ok':False})
     assert direct_vm.run_validator() is False
 
 
@@ -101,7 +119,11 @@ def test_validator_malformed_full_matrix(direct_vm,direct_deploy,direct_alice,di
     c,a,ids,g,m=fixture(direct_vm,direct_deploy,direct_alice,direct_bob)
     cert(direct_vm,c,a,g,m)
     direct_vm.clear_mocks()
-    direct_vm.mock_llm(r'SEVER / INDEPENDENT FULL MATRIX',{'edges':m['edges'][:-1]})
+    ids=sorted({x for edge in m['edges'] for x in edge[:2]})
+    batch_index=len(m['edges'])-1
+    row_pairs=[m['edges'][batch_index][:2]]
+    row={'edges':[edge[:] for edge in m['edges'] if edge[:2] in row_pairs]}
+    direct_vm.mock_llm(fr'SEVER / INDEPENDENT BOUNDED PAIR {batch_index}',{'edges':row['edges'][:-1]})
     assert direct_vm.run_validator() is False
 
 

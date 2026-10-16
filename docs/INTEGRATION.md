@@ -27,7 +27,7 @@ npm run deploy:guarded
 
 Record its finalized address and transaction ID. Then use that address to create a draft with `create_agreement(title, purpose)`. The creator adds the other party and between two and six clauses with `add_party` and `add_clause`; clause text and the essential flag freeze when the creator calls `seal_agreement`. The returned genesis hash commits to the party list, purpose, titles, text, clause IDs, and essential designations.
 
-Every party must call `ratify_agreement(agreement_id, genesis_hash)` from their own address. Only then can anyone call `activate_agreement(agreement_id)`. The agreement remains not operative until `certify_dependencies(agreement_id, genesis_hash)` completes through GenLayer consensus.
+Every party must call `ratify_agreement(agreement_id, genesis_hash)` from their own address. Only then can anyone call `activate_agreement(agreement_id)`. Activation freezes an immutable certification epoch over the signed purpose, clause IDs, and clause text. Call `certify_dependency_batch(agreement_id, genesis_hash, batch_index)` once for each directed pair (indices `0` through `clause_count × (clause_count − 1) − 1`). Each validator independently classifies that pair and audits any proposed independent edge. Finally call `finalize_dependency_certification(agreement_id, genesis_hash)`. It rejects incomplete coverage and commits only after every ordered pair has been certified in the same epoch.
 
 Use `get_agreement`, `get_clause`, `get_graph`, and `agreement_head` to inspect state. For state-changing calls, check the CLI receipt and trace and verify both finalization and successful execution before proceeding. Do not treat submission or an accepted receipt alone as completion.
 
@@ -66,7 +66,7 @@ After finalization, query `get_clause` and the `is_clause_operative` view. A dir
 
 - **Draft and freeze:** `create_agreement`, `add_party`, `add_clause`, `seal_agreement`.
 - **Consent and activation:** `ratify_agreement`, `activate_agreement`.
-- **Semantic graph:** `certify_dependencies`, `get_graph`.
+- **Semantic graph:** `certify_dependency_batch`, `finalize_dependency_certification`, `get_graph`.
 - **Stipulated failure:** `propose_invalidation`, `endorse_invalidation`, `reject_invalidation`, `finalize_invalidation`.
 - **Read state:** `get_agreement`, `get_clause`, `get_failure`, `get_vote`, `agreement_head`, `is_clause_operative`, `is_agreement_operative`, `is_agreement_fully_operative`.
 

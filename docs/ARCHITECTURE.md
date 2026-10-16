@@ -15,13 +15,13 @@ Sever is deliberately **not** a free-form court. It cannot rule that a clause is
 5. Result is stored as 1–30 directed edges, typed as INDEPENDENT, REQUIRES or UNCERTAIN. Graph and versioned head are committed to storage.
 6. Later clause invalidation may only occur after explicit unanimous party approval and a pre-existing graph. No participant can change clause text, purpose or essentiality after seal.
 
-## One-shot full matrix consensus
+## Bounded certification in one immutable epoch
 
-For N clauses, validators must classify **N × (N−1)** ordered pairs. No edge is optional, including edges that appear unrelated. The leader's normalized output schema requires all edges in one exact deterministic order. Malformed/truncated/duplicated/reordered matrices are rejected.
+Activation derives an epoch hash from the agreement ID, genesis hash, purpose, exact clause IDs and text, and ordered source IDs. For N clauses, certification is split into N × (N−1) batches of one directed pair each. The epoch and pair order cannot change between calls. A batch can be committed only once; the deterministic finalizer requires every batch and validates the complete N × (N−1) directed graph before publishing it.
 
-On validation, validators independently recompute the entire directed relation vector **from the frozen agreement**. Every relation label must match, not just graph size or JSON formatting. Then a second adversarial check explicitly attempts to find any suppressed dependency among edges labeled INDEPENDENT. A validator rejects if an omitted material dependency or unresolved safety doubt exists.
+For each bounded pair, the leader classifies the directed relationship and validators independently classify the same relationship from the frozen clause-ID map and exact text. A validator rejects any proposed INDEPENDENT edge that its own classification calls REQUIRES or UNCERTAIN, and separately audits every proposed independent edge for counterexamples. Risk-only proposals skip the empty survivor audit after independent reclassification. GenLayer's validator quorum determines transaction finality; receipts expose any dissent, so independent edges are quorum-validated, not validator-unanimous. Malformed, omitted, reordered, foreign, or ambiguous relations cannot become independence under a validator's check. `UNCERTAIN` remains a first-class edge that propagates suspension. This limits each semantic consensus call to one directed relationship while requiring complete graph coverage across the immutable epoch.
 
-The stored graph contains only consensus-bound relation labels, not natural-language rationales masquerading as agreed facts. Semantic disagreements may cause retries, rotations or appeals under normal GenLayer consensus; there is no local “majority vote” shortcut in the contract.
+The stored graph contains only consensus-bound relation labels, not natural-language rationales masquerading as agreed facts. There is no local “majority vote” shortcut in the contract: every batch must pass GenLayer consensus and the complete set must be finalized in the same immutable epoch.
 
 ## Deterministic closure
 

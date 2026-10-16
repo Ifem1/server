@@ -65,4 +65,4 @@ On 2026-10-16, the Windows local toolchain produced these results:
 - For each contract, `check` passed all three lint checks, `validate` passed (Sever: 21 methods; consumer: 2 methods), strict typecheck reported no type errors, and ABI schema generation succeeded.
 - Local CLI reported **0.39.1**. The RPC guard independently verified StudioNet chain ID **61999**.
 
-These local results are distinct from the public-chain evidence above. A new GitHub Actions result for this source revision is pending the final push; the earlier successful run is retained in repository history.
+These local results are distinct from the public-chain evidence above. GitHub Actions passed for commit `f02a04a` in [run 38975646112](https://github.com/Ifem1/server/actions/runs/38975646112); both the `offline` and `direct-and-lint` jobs completed successfully.

@@ -4,7 +4,7 @@ All transactions below were submitted to stable StudioNet, chain ID `61999`, usi
 
 ## Release deployment status
 
-The contract source has been remediated after the deployment below. This historical deployment does not contain the corrected validator and is not a deployment of the current release source. A submission-readiness claim requires a new matched deployment and lifecycle.
+The current corrected release is deployed on StudioNet chain 61999 and has completed matched-source verification plus Lifecycle A and essential-failure Lifecycle B. The earlier deployment and its transactions remain below as historical evidence.
 
 
 ## Corrected deployment and Lifecycle A (2026-10-20)
@@ -28,7 +28,7 @@ The first Lifecycle B attempt (agreement 2) is preserved as a genuine semantic-c
 | Pre-remediation manifest hash | `9c0205d994da16cc81dff15223a7fbceab6e45420a813e130b0925563c3ef9b2` (raw bytes) |
 | Historical consumer raw and normalized SHA-256 | `d92133f0ec3ff0079591227697dd2028f1155176025b5cdcd89d9d6781610d27` |
 
-The pre-remediation source hashes were different because the manifest recorded raw CRLF bytes (`9c02…`) while the deployment prose recorded LF-normalized bytes (`6dc6…`). They identify the same source after explicit CRLF→LF normalization. Both deployed contracts were retrieved with `gen_getContractCode`; the captured bytes and current local comparison are recorded in [source-parity-report.json](../artifacts/source-parity-report.json), with source snapshots under `artifacts/onchain-source/`. The current corrected Sever source differs from this historical deployment and requires redeployment. The separate CLI `trace` endpoint is unavailable on this RPC (`gen_dbg_traceTransaction` returns `Method not found`); finalized transaction receipts remain available.
+The pre-remediation source hashes were different because the manifest recorded raw CRLF bytes (`9c02…`) while the deployment prose recorded LF-normalized bytes (`6dc6…`). They identify the same source after explicit CRLF→LF normalization. Both deployed contracts were retrieved with `gen_getContractCode`; the captured bytes and current local comparison are recorded in [source-parity-report.json](../artifacts/source-parity-report.json), with source snapshots under `artifacts/onchain-source/`. The current corrected Sever deployment is documented above; the address and source hashes in this historical subsection refer only to the superseded pre-remediation contract. The separate CLI `trace` endpoint is unavailable on this RPC (`gen_dbg_traceTransaction` returns `Method not found`); finalized transaction receipts remain available.
 
 ## Real validator disagreement investigation
 

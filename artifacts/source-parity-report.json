@@ -1,9 +1,9 @@
 {
   "rpc": "https://studio.genlayer.com/api",
   "chain_id": 61999,
-  "captured_at_utc": "2026-10-20T21:54:19.682Z",
-  "head_commit": "603a977385ed4c16f8d698e4025f172ca521234a",
-  "working_tree_dirty": true,
+  "captured_at_utc": "2026-10-20T22:16:37.985Z",
+  "head_commit": "298d921732d7b6d56933680a517ac557f7d7b07d",
+  "working_tree_dirty": false,
   "contracts": [
     {
       "name": "sever",
@@ -21,9 +21,9 @@
     },
     {
       "name": "consumer",
-      "address": "0x2533A97840d431E0dE4B1385c77477411e27A450",
+      "address": "0xAf9A540b170255b5CBe8FBA844822cedce95a731",
       "local_path": "contracts/sever_consumer_example.py",
-      "retrieved_path": "artifacts/onchain-source/consumer-2533a97840d431e0de4b1385c77477411e27a450.py",
+      "retrieved_path": "artifacts/onchain-source/consumer-af9a540b170255b5cbe8fba844822cedce95a731.py",
       "deployed_original_bytes": 1852,
       "local_original_bytes": 1852,
       "deployed_sha256_original_bytes": "d92133f0ec3ff0079591227697dd2028f1155176025b5cdcd89d9d6781610d27",

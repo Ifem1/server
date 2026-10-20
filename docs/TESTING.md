@@ -53,7 +53,7 @@ The official `v0.3.0-rc7` release publishes the 134 MB runner archive as `genvm-
 
 ## Live evidence
 
-Historical source retrieval is captured by `scripts/capture_source_parity.mjs` and `artifacts/source-parity-report.json`; the report includes raw-byte and LF-normalized hashes for both deployed contracts. The historical Sever source matched the repository's pre-remediation source after LF normalization. Its raw deployed hash matches the original manifest; the raw hash in older prose used the LF-normalized bytes. The Agreement 4 live graph contains both `14 → 15 REQUIRES` and `15 → 14 REQUIRES`; the latter explains suspension of clause 15 after invalidating clause 14. The previous deployment record omitted that reciprocal edge. The corrected validator and direction regression tests are offline and Direct Mode checks, not live semantic-consensus evidence. A new corrected live lifecycle is still required after any contract-source change.
+Current source retrieval is recorded in `artifacts/source-parity-report.json` for Sever `0xD7D258B09B21017D42EEcb14158d062e60E2064b` and consumer `0xAf9A540b170255b5CBe8FBA844822cedce95a731` on StudioNet 61999. The report was captured from a clean tree at source commit `298d921732d7b6d56933680a517ac557f7d7b07d`; both deployed contracts match the local source byte-for-byte and after LF normalization. Historical deployment hashes and the Agreement 4 graph correction remain documented separately. The corrected source also has live lifecycle evidence: Lifecycle A demonstrates dependent suspension and independent survival; Lifecycle B demonstrates essential collapse and consumer rejection. Current receipts are in `artifacts/current-live-receipts.json`.
 
 ## Verification run
 
@@ -66,4 +66,4 @@ On 2026-10-20, the repository-local toolchain produced these results:
 - For Sever and consumer, `check` passed, `validate` passed (21 and 2 methods), strict typecheck reported zero errors, and ABI schema generation succeeded.
 - The network guard independently verified StudioNet chain ID **61999**.
 
-These checks verify local source behavior and target selection; they do not prove the corrected source is live. The old GitHub Actions run for commit `f02a04a` is historical only; the final pushed commit still needs its own successful Actions run.
+These checks are paired with the live deployment and receipt evidence above. The corrected release source commit `298d921732d7b6d56933680a517ac557f7d7b07d` passed the complete GitHub Actions workflow, including offline tests, StudioNet guard, both-contract lint and strict typecheck, schema generation, and Direct Mode: [final release CI run](https://github.com/Ifem1/server/actions/runs/39505478942).

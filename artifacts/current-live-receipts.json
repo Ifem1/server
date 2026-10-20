@@ -1,0 +1,328 @@
+{
+  "rpc": "https://studio.genlayer.com/api",
+  "chain_id": 61999,
+  "captured_at_utc": "2026-10-20T21:55:27.471Z",
+  "transactions": [
+    {
+      "label": "Corrected Sever deployment",
+      "transaction_hash": "0x5cc3de50b3368f91bbda5916fceb2efa58f7bfaa85e2dd5e82b536247879cdcf",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0x5cc3de50b3368f91bbda5916fceb2efa58f7bfaa85e2dd5e82b536247879cdcf",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "null",
+      "validator_vote_counts": {
+        "idle": 2,
+        "agree": 3
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle A graph finalization",
+      "transaction_hash": "0x547aeeecdb62bef90e57107b723f3425e6950565ab94a94233981668fc995101",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0x547aeeecdb62bef90e57107b723f3425e6950565ab94a94233981668fc995101",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "\"8aceeb34cc813f5a26126f024dfb2c69dcea5c911f3de0f2d1d193cb6d9234a9\"",
+      "validator_vote_counts": {
+        "agree": 3,
+        "idle": 2
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle A consumer deployment",
+      "transaction_hash": "0x1899a02be92dd645a247a35982afd57f6c655818ab32a9f05b57144eeb612c01",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0x1899a02be92dd645a247a35982afd57f6c655818ab32a9f05b57144eeb612c01",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "null",
+      "validator_vote_counts": {
+        "agree": 5
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xAf9A540b170255b5CBe8FBA844822cedce95a731"
+    },
+    {
+      "label": "Lifecycle A consumer accepted action",
+      "transaction_hash": "0x65607e499f6d77d052c7fdbf09b40606646a2d3cb02fad062eab51f7940ae93f",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0x65607e499f6d77d052c7fdbf09b40606646a2d3cb02fad062eab51f7940ae93f",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "null",
+      "validator_vote_counts": {
+        "agree": 3,
+        "idle": 2
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xAf9A540b170255b5CBe8FBA844822cedce95a731"
+    },
+    {
+      "label": "Lifecycle A invalidation proposal",
+      "transaction_hash": "0xb654593592e608f96c463dda26b8f91a84833afb9df9dffb5fa1dea22d3250b0",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0xb654593592e608f96c463dda26b8f91a84833afb9df9dffb5fa1dea22d3250b0",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "1",
+      "validator_vote_counts": {
+        "agree": 3,
+        "idle": 2
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle A invalidation endorsement",
+      "transaction_hash": "0x6f9faa173395d3e7463ac331081177e21bf1249cb48de0d1335d81c2b8312b36",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0x6f9faa173395d3e7463ac331081177e21bf1249cb48de0d1335d81c2b8312b36",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "null",
+      "validator_vote_counts": {
+        "idle": 2,
+        "agree": 3
+      },
+      "from": "0x3926627Eb9D353e29C7D6f8f914bE96F38631bAB",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle A invalidation finalization",
+      "transaction_hash": "0x84d501aefa3265029d22bbc6f95ed4e8ce95c9d16bdc4bb6cc57d51ff4526b27",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0x84d501aefa3265029d22bbc6f95ed4e8ce95c9d16bdc4bb6cc57d51ff4526b27",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "\"7d9e5fa337977bb69749026f09e0afc083953db764cb16c5d9fa32c199b54aaa\"",
+      "validator_vote_counts": {
+        "agree": 5
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle A consumer rejected action",
+      "transaction_hash": "0x85fe4ee6bdcd33acc475c1f4839c40e3f3af9dac6aa660617a66cdd096ae8a57",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0x85fe4ee6bdcd33acc475c1f4839c40e3f3af9dac6aa660617a66cdd096ae8a57",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "ERROR",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "rollback",
+      "contract_return_payload": "SEVER_CLAUSE_NOT_OPERATIVE",
+      "validator_vote_counts": {
+        "agree": 4,
+        "idle": 1
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xAf9A540b170255b5CBe8FBA844822cedce95a731"
+    },
+    {
+      "label": "Lifecycle B agreement 3 creation",
+      "transaction_hash": "0xe89d0a0e2b5459f9ffdfbd9a94a9ef9733f7d15ba48dd3ff2d3680b8268b9219",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0xe89d0a0e2b5459f9ffdfbd9a94a9ef9733f7d15ba48dd3ff2d3680b8268b9219",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "3",
+      "validator_vote_counts": {
+        "agree": 5
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle B agreement 3 first directed pair",
+      "transaction_hash": "0xa89d65b0de8d8160533d054f2caeffdff2eb9071c0b39f6f2596b8b84cc3cfb5",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0xa89d65b0de8d8160533d054f2caeffdff2eb9071c0b39f6f2596b8b84cc3cfb5",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "\"434ff19a01733516c13bc2d8edd0080435cf360998616f4a6268aee6d351303e\"",
+      "validator_vote_counts": {
+        "agree": 3,
+        "idle": 1,
+        "disagree": 1
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle B agreement 3 second directed pair",
+      "transaction_hash": "0x2f8511b5f62c9ce7f740046171d378a797e7d78dd1516d8bc6c18e7d367b02c3",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0x2f8511b5f62c9ce7f740046171d378a797e7d78dd1516d8bc6c18e7d367b02c3",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "\"35c7245a37b32cd86436133733f82dd5796268e94008c214a0433c0365ec7ab5\"",
+      "validator_vote_counts": {
+        "agree": 3,
+        "idle": 2
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle B graph finalization",
+      "transaction_hash": "0xad790fc5fff990d7b2d2c9f13621d92b0100a7e15ea1e896bce88f4411c9f60d",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0xad790fc5fff990d7b2d2c9f13621d92b0100a7e15ea1e896bce88f4411c9f60d",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "\"8795034f33288db8309e0215851ae3db47fa4de3041f822a5c7419d5543382a1\"",
+      "validator_vote_counts": {
+        "idle": 2,
+        "agree": 3
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle B essential invalidation proposal",
+      "transaction_hash": "0xc7bfc1ca810ab9ea1afedcca5b3eef491212901e523815d526fb2cbb61adbcb6",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0xc7bfc1ca810ab9ea1afedcca5b3eef491212901e523815d526fb2cbb61adbcb6",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "2",
+      "validator_vote_counts": {
+        "idle": 2,
+        "agree": 3
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle B second-party endorsement",
+      "transaction_hash": "0x1a0310ce88fc0510d13965e68a1f26f00d330cc09026c733c7599067c3e4408d",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0x1a0310ce88fc0510d13965e68a1f26f00d330cc09026c733c7599067c3e4408d",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "null",
+      "validator_vote_counts": {
+        "idle": 2,
+        "agree": 3
+      },
+      "from": "0x3926627Eb9D353e29C7D6f8f914bE96F38631bAB",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle B duplicate endorsement rejected",
+      "transaction_hash": "0x277f1c97ec6f018a84da9365b0afc97b73df73c8114e1422b1f46def3671696b",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0x277f1c97ec6f018a84da9365b0afc97b73df73c8114e1422b1f46def3671696b",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "ERROR",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "rollback",
+      "contract_return_payload": "ALREADY_ENDORSED",
+      "validator_vote_counts": {
+        "agree": 3,
+        "idle": 2
+      },
+      "from": "0x3926627Eb9D353e29C7D6f8f914bE96F38631bAB",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle B essential invalidation finalization",
+      "transaction_hash": "0xd0eb27dcebfa5a5595b86bee42fbd13a6964a112a3fe5bc206d0f124a0a2f586",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0xd0eb27dcebfa5a5595b86bee42fbd13a6964a112a3fe5bc206d0f124a0a2f586",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "\"5fe90b564a0db1772ddd15242188b27cfb4b83d4a426c9af23f79afdb224c144\"",
+      "validator_vote_counts": {
+        "agree": 5
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle B consumer deployment",
+      "transaction_hash": "0x1ab7bf52b48c88df5d929c90d8559776b08927c06b50a918f07dcc01805651b6",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0x1ab7bf52b48c88df5d929c90d8559776b08927c06b50a918f07dcc01805651b6",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "SUCCESS",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "return",
+      "contract_return_payload": "null",
+      "validator_vote_counts": {
+        "agree": 3,
+        "idle": 2
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0x2533A97840d431E0dE4B1385c77477411e27A450"
+    },
+    {
+      "label": "Lifecycle B collapsed-consumer rejected action",
+      "transaction_hash": "0x4e665162558c1f876e8911aedb1be3e772a4f390a19e89170665b662fba5dfd6",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0x4e665162558c1f876e8911aedb1be3e772a4f390a19e89170665b662fba5dfd6",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "ERROR",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "rollback",
+      "contract_return_payload": "SEVER_CLAUSE_NOT_OPERATIVE",
+      "validator_vote_counts": {
+        "agree": 3,
+        "idle": 2
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0x2533A97840d431E0dE4B1385c77477411e27A450"
+    }
+  ]
+}

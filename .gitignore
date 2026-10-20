@@ -19,3 +19,4 @@ artifacts/onchain-source/*
 !artifacts/onchain-source/*.py
 coverage/
 .DS_Store
+!artifacts/current-live-receipts.json

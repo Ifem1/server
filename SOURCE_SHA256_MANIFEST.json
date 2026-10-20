@@ -13,7 +13,7 @@
     ".github/workflows/checks.yml": "bb5bb24a38eeb128ae754834c3e4c923949d92c412aa92de14ed01a2d79f5970",
     "artifacts/final-pair-certification.txt": "cdc8e0d39b64edc651d7160ca1bf8035bba985c2aa37a4c1259c9c733d81892f",
     "artifacts/historical-transaction-receipts.json": "ff76aea2ced057fc536f4b35466fe1659663efc8e8247f2e95bb6c458d9fb2fb",
-    "artifacts/lifecycle-certification.txt": "01ec321457e94e5c51175d9b798a067f274a75891cda40e5c3f607bb2966a1b8",
+    "artifacts/lifecycle-certification.txt": "7dd17eb5528cdbb93f6bdce5cdb69d95ea7eb648f9ffc780be294c1da781915e",
     "artifacts/sever-abi.json": "41e2e480373bfa570a77bff94b96de0a97852b99eb8ef79d9abf6fdf60d1396c",
     "artifacts/sever-consumer-abi.json": "aab8d177afe99a347a167b7453e784b8ed71a6aefc8be992e3c212d84fad193f",
     "artifacts/source-parity-report.json": "c7bf31f4454a12a54382f224a25f6e6eb04028d619c3364101114ceb6fc246a3",

@@ -6,6 +6,16 @@ All transactions below were submitted to stable StudioNet, chain ID `61999`, usi
 
 The contract source has been remediated after the deployment below. This historical deployment does not contain the corrected validator and is not a deployment of the current release source. A submission-readiness claim requires a new matched deployment and lifecycle.
 
+
+## Corrected deployment and Lifecycle A (2026-10-20)
+
+The corrected Sever source from commit `fec306810fb0f138a3baf7f6656bdd5c48395192` is deployed at `0xD7D258B09B21017D42EEcb14158d062e60E2064b`. Its [deployment receipt](https://explorer-studio.genlayer.com/tx/0x5cc3de50b3368f91bbda5916fceb2efa58f7bfaa85e2dd5e82b536247879cdcf) is finalized with leader GenVM `SUCCESS`. The retrieved source matches the local contract exactly: raw SHA-256 `0e8d657c356b58d41dc2f427cd2671c91b98bd79a7799710eb46f7ca3e6cfa12`; normalized SHA-256 `416497261308fbfb524cce99b33cab32552b3dfc96ab392918cdf77f436f3cbd`.
+
+Lifecycle A agreement 1 genesis is `1fec5974896f2601cdfcb3531c1551143f6f248a37830d57c40ac526634a3ea4`; its certified graph hash is `8aceeb34cc813f5a26126f024dfb2c69dcea5c911f3de0f2d1d193cb6d9234a9`. The graph includes `2 REQUIRES 1`; all other five directed pairs are `INDEPENDENT`. The graph was finalized in [transaction](https://explorer-studio.genlayer.com/tx/0x547aeeecdb62bef90e57107b723f3425e6950565ab94a94233981668fc995101).
+
+The matching consumer at `0xAf9A540b170255b5CBe8FBA844822cedce95a731` was deployed in [transaction](https://explorer-studio.genlayer.com/tx/0x1899a02be92dd645a247a35982afd57f6c655818ab32a9f05b57144eeb612c01), bound to agreement 1, clause 2, and that genesis. It executed successfully in [transaction](https://explorer-studio.genlayer.com/tx/0x65607e499f6d77d052c7fdbf09b40606646a2d3cb02fad062eab51f7940ae93f). The [invalidation proposal](https://explorer-studio.genlayer.com/tx/0xb654593592e608f96c463dda26b8f91a84833afb9df9dffb5fa1dea22d3250b0) and [second-party endorsement](https://explorer-studio.genlayer.com/tx/0x6f9faa173395d3e7463ac331081177e21bf1249cb48de0d1335d81c2b8312b36) preceded [finalization](https://explorer-studio.genlayer.com/tx/0x84d501aefa3265029d22bbc6f95ed4e8ce95c9d16bdc4bb6cc57d51ff4526b27). Direct reads show clause 1 INVALID, clause 2 SUSPENDED, clause 3 ACTIVE. The same consumer's [post-invalidation action](https://explorer-studio.genlayer.com/tx/0x85fe4ee6bdcd33acc475c1f4839c40e3f3af9dac6aa660617a66cdd096ae8a57) finalized with leader GenVM `ERROR`; its action count remained 2. Full raw and normalized source comparisons are in [source-parity-report.json](../artifacts/source-parity-report.json).
+
+Lifecycle B has been created and ratified with essential clause 4 and dependent clause 5, but pair certification has not reached consensus. One attempt finalized `MAJORITY_DISAGREE`; a retry remained pending at the time of the last read. There is no verified Lifecycle B graph, essential-collapse result, or B-bound consumer result, so the release is not yet submission-ready.
 ## Historical deployed source
 
 | Field | Value |

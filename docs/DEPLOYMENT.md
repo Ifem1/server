@@ -2,17 +2,23 @@
 
 All transactions below were submitted to stable StudioNet, chain ID `61999`, using the repository-local GenLayer CLI `0.39.1`. A receipt marked `ACCEPTED` by the CLI is finalized for this network. Validator vote labels describe GenLayer's consensus result; they do not imply every validator independently agrees with every semantic classification.
 
-## Deployed source
+## Release deployment status
+
+The contract source has been remediated after the deployment below. This historical deployment does not contain the corrected validator and is not a deployment of the current release source. A submission-readiness claim requires a new matched deployment and lifecycle.
+
+## Historical deployed source
 
 | Field | Value |
 |---|---|
 | Sever contract | `0x631fF4E9C44f8AD5496Ea5EeC10B3c476aA0c1CD` |
 | Deployment transaction | `0x36ede6be2268f582d81f1948d0121bf5da131217cb9357624ec216bb10929654` |
-| Canonical deployed source SHA-256 | `6dc67c8eb662137a085ef39c868a71d1c32779456893e7c8031ea42479b310ac` |
-| Local source SHA-256, LF normalized | `6dc67c8eb662137a085ef39c868a71d1c32779456893e7c8031ea42479b310ac` |
-| Consumer source SHA-256, LF normalized | `d92133f0ec3ff0079591227697dd2028f1155176025b5cdcd89d9d6781610d27` |
+| Source version | `a33def3684586e7e6c0cf815ecd1ea50b596a14f` (pre-remediation) |
+| Deployed Sever raw-byte SHA-256 | `9c0205d994da16cc81dff15223a7fbceab6e45420a813e130b0925563c3ef9b2` |
+| Deployed Sever SHA-256 after CRLF→LF normalization | `6dc67c8eb662137a085ef39c868a71d1c32779456893e7c8031ea42479b310ac` |
+| Pre-remediation manifest hash | `9c0205d994da16cc81dff15223a7fbceab6e45420a813e130b0925563c3ef9b2` (raw bytes) |
+| Historical consumer raw and normalized SHA-256 | `d92133f0ec3ff0079591227697dd2028f1155176025b5cdcd89d9d6781610d27` |
 
-The deployed source was retrieved with the GenLayer CLI `code` command. Normalizing the retrieved and local UTF-8 source to LF with one final newline produced identical bytes. The separate CLI `trace` endpoint is unavailable on this RPC (`gen_dbg_traceTransaction` returns `Method not found`); finalized receipts provide transaction and execution evidence.
+The pre-remediation source hashes were different because the manifest recorded raw CRLF bytes (`9c02…`) while the deployment prose recorded LF-normalized bytes (`6dc6…`). They identify the same source after explicit CRLF→LF normalization. Both deployed contracts were retrieved with `gen_getContractCode`; the captured bytes and current local comparison are recorded in [source-parity-report.json](../artifacts/source-parity-report.json), with source snapshots under `artifacts/onchain-source/`. The current corrected Sever source differs from this historical deployment and requires redeployment. The separate CLI `trace` endpoint is unavailable on this RPC (`gen_dbg_traceTransaction` returns `Method not found`); finalized transaction receipts remain available.
 
 ## Real validator disagreement investigation
 
@@ -48,20 +54,33 @@ The six directed pairs finalized in one round each with `MAJORITY_AGREE`:
 
 | Pair index | IDs | Transaction | Last-round votes |
 |---:|---|---|---|
-| 0 | 14 → 15 | `0x46bcc13b82edc47b496b61a1f4ff63c7d2270d07e28804c1e9aa59b4d8a50e60` | 3 agree, 2 idle |
-| 1 | 14 → 16 | `0x4f7a6d4426737f672ceb24c66bdfe3a7fa133792e0c8cb4f9be07885ad1e53b5` | 3 agree, 2 idle |
-| 2 | 15 → 14 | `0x5727f92daff117b39762f8d2c530d797b251f673728fcc4984c543f9cd2345a7` | 3 agree, 2 idle |
-| 3 | 15 → 16 | `0x1b160eb591c107919208557b4a26058464f589b7097f911b02900e0dea35b5f7` | 3 agree, 2 idle |
-| 4 | 16 → 14 | `0xdd8492069de93f5e0e9867dc1e2117c532bcd2482b6e28d3089ef2b707a34dee` | 3 agree, 1 disagree, 1 idle |
-| 5 | 16 → 15 | `0x9c395d21225ba6101e70c8e32bdfd743d25a29c1ef43e7eb9f644299177ba8cc` | 3 agree, 2 idle |
+| 0 | 14 → 15 | [transaction](https://explorer-studio.genlayer.com/tx/0x46bcc13b82edc47b496b61a1f4ff63c7d2270d07e28804c1e9aa59b4d8a50e60) | 3 agree, 2 idle |
+| 1 | 14 → 16 | [transaction](https://explorer-studio.genlayer.com/tx/0x4f7a6d4426737f672ceb24c66bdfe3a7fa133792e0c8cb4f9be07885ad1e53b5) | 3 agree, 2 idle |
+| 2 | 15 → 14 | [transaction](https://explorer-studio.genlayer.com/tx/0x5727f92daff117b39762f8d2c530d797b251f673728fcc4984c543f9cd2345a7) | 3 agree, 2 idle |
+| 3 | 15 → 16 | [transaction](https://explorer-studio.genlayer.com/tx/0x1b160eb591c107919208557b4a26058464f589b7097f911b02900e0dea35b5f7) | 3 agree, 2 idle |
+| 4 | 16 → 14 | [transaction](https://explorer-studio.genlayer.com/tx/0xdd8492069de93f5e0e9867dc1e2117c532bcd2482b6e28d3089ef2b707a34dee) | 3 agree, 1 disagree, 1 idle |
+| 5 | 16 → 15 | [transaction](https://explorer-studio.genlayer.com/tx/0x9c395d21225ba6101e70c8e32bdfd743d25a29c1ef43e7eb9f644299177ba8cc) | 3 agree, 2 idle |
 
-Finalization transaction `0xec4a96f4e4d3943f881b64df8f06766c30877a731634bdce341a96f3aed63795` committed graph hash `8254945f56aa6a37bade8351ac8f3821a25e822f6f0a1ded49e58d1a3723749a`. `get_graph(4)` returned `14 → 15 REQUIRES`, with the other five relationships `INDEPENDENT`.
+Finalization [receipt](https://explorer-studio.genlayer.com/tx/0xec4a96f4e4d3943f881b64df8f06766c30877a731634bdce341a96f3aed63795) is `FINALIZED` / `MAJORITY_AGREE`; its leader GenVM execution is `SUCCESS`, with four agree and one idle validator. It committed graph hash `8254945f56aa6a37bade8351ac8f3821a25e822f6f0a1ded49e58d1a3723749a`. A direct live `get_graph(4)` read returned:
 
-The pinned consumer was deployed at `0xf2DE8057a2416307C7F77cd62365E15E8A880caA` in transaction `0xbd3eab8bc7899b8f50f4def45ab63c348628243c2750b2f447f4dacbe6bab739`, bound to Sever, agreement 4, clause 15, and the exact genesis hash. Its action transaction `0x605ef7a734cee097200b78ef1868e0b1e94f183fb8740b1bc19f9d8f42531aea` succeeded while the clause was operative.
+| Directed pair | Stored relation |
+|---|---|
+| 14 → 15 | `REQUIRES` |
+| 14 → 16 | `INDEPENDENT` |
+| 15 → 14 | `REQUIRES` |
+| 15 → 16 | `INDEPENDENT` |
+| 16 → 14 | `INDEPENDENT` |
+| 16 → 15 | `INDEPENDENT` |
 
-The invalidation proposal transaction `0x9ae1e3da2073d038a518974a9489fbb986a0fb7a4f9ab55a650f1573e4c3e5e7` targeted clause 14 at the current head. The other party endorsed failure ID 1 in `0x164e38944c6efd6fbc24c1241b908919ea33bf13c998374acc163720c1675dad`. Finalization transaction `0xf950bc37bfdd73c2d6373d17fd01991d31e7d0e0d350060a9be95cf3f5f29c6c` produced the states above. Live views returned false for clause 15 and true for clause 16.
+The earlier deployment prose and `artifacts/lifecycle-certification.txt` omitted the `15 → 14 REQUIRES` edge. The six finalized pair transactions show the full pair coverage; the edge direction and classes above are from the live graph read. The clause texts establish a reciprocal relationship: clause 15 explicitly requires the report prepared by 14, while clause 14 describes preparation of the specific report delivered under 15. The observed statuses are consistent with the stored graph and the deployed `impact_closure`: when 14 is invalid, 15 suspends through `15 → 14`; 14's outgoing edge cannot suspend its own root; 16 survives because both its edges are independent. This is not a propagation defect or a status contradiction. It is a historical evidence-description omission. The current regression test asserts this direction and demonstrates that the reversed single edge does not suspend 15.
 
-After invalidation, the same consumer's action transaction `0xf1deceb415bd13ee778ab72e6e925f66ddc89d5ccfa252466ba8b6691330423c` rolled back with `SEVER_CLAUSE_NOT_OPERATIVE`. Its `action_count()` stayed at `1`, confirming the failed action did not change consumer state. This completes the certified graph → unanimous invalidation → dependent suspension → independent survival → consumer acceptance and rejection lifecycle.
+The pinned consumer was deployed at `0xf2DE8057a2416307C7F77cd62365E15E8A880caA` in [transaction](https://explorer-studio.genlayer.com/tx/0xbd3eab8bc7899b8f50f4def45ab63c348628243c2750b2f447f4dacbe6bab739), bound to Sever, agreement 4, clause 15, and the exact genesis hash. Its [action transaction](https://explorer-studio.genlayer.com/tx/0x605ef7a734cee097200b78ef1868e0b1e94f183fb8740b1bc19f9d8f42531aea) finalized with leader GenVM `SUCCESS` while the clause was operative.
+
+The [invalidation proposal](https://explorer-studio.genlayer.com/tx/0x9ae1e3da2073d038a518974a9489fbb986a0fb7a4f9ab55a650f1573e4c3e5e7) targeted clause 14 at the current head. The other party [endorsed](https://explorer-studio.genlayer.com/tx/0x164e38944c6efd6fbc24c1241b908919ea33bf13c998374acc163720c1675dad) failure ID 1. [Finalization](https://explorer-studio.genlayer.com/tx/0xf950bc37bfdd73c2d6373d17fd01991d31e7d0e0d350060a9be95cf3f5f29c6c) produced the states above. A direct `get_failure(1)` read reports finalized=true and status snapshot `[[14,2],[15,3],[16,1]]`; live views returned false for clause 15 and true for clause 16.
+
+After invalidation, the same consumer's [rejected action transaction](https://explorer-studio.genlayer.com/tx/0xf1deceb415bd13ee778ab72e6e925f66ddc89d5ccfa252466ba8b6691330423c) finalized by consensus with leader GenVM execution `ERROR` and contract rollback payload `SEVER_CLAUSE_NOT_OPERATIVE`. Its `action_count()` stayed at `1`, confirming the failed action did not change consumer state. This completes the historical certified graph → unanimous invalidation → dependent suspension → independent survival → consumer acceptance and rejection lifecycle.
+
+The structured receipts for the deployment, all six pair calls, graph finalization, consumer deployment/actions, and invalidation steps are in [historical-transaction-receipts.json](../artifacts/historical-transaction-receipts.json). These are historical receipts from the pre-remediation deployment; Direct Mode and offline tests cover the corrected validator but do not replace a new live lifecycle.
 
 ## Earlier agreements
 

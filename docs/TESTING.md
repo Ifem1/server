@@ -2,7 +2,7 @@
 
 ## Tool versions
 
-The repository pins `genlayer-test==0.29.0`, `genvm-linter==0.11.0`, `pytest==8.4.2`, and local `genlayer@0.39.1`. Python 3.12+ and Node 20.11+ are required; Node 22 LTS is recommended.
+The repository pins `genlayer-test==0.29.0`, `genvm-linter==0.11.0`, `pytest==8.4.2`, and local `genlayer@0.39.1`. The release environment uses Python 3.12 and Node 22 LTS.
 
 ## Reproducible local checks
 
@@ -53,16 +53,17 @@ The official `v0.3.0-rc7` release publishes the 134 MB runner archive as `genvm-
 
 ## Live evidence
 
-The deployed source is retrieved from StudioNet and byte-matches the local source after LF normalization. Three earlier whole-matrix transactions finalized `MAJORITY_DISAGREE`; their real validator vote receipts motivated one directed pair per bounded batch in a fixed epoch. Agreement 3 then finalized a complete 12-pair graph. Agreement 4 finalized a complete six-pair graph, followed by unanimous clause invalidation, dependent-clause suspension, independent-clause survival, and a live pinned consumer action that succeeded before invalidation and rolled back afterward without changing its counter. Exact hashes, statuses, source hashes and graph values are recorded in `docs/DEPLOYMENT.md`.
+Historical source retrieval is captured by `scripts/capture_source_parity.mjs` and `artifacts/source-parity-report.json`; the report includes raw-byte and LF-normalized hashes for both deployed contracts. The historical Sever source matched the repository's pre-remediation source after LF normalization. Its raw deployed hash matches the original manifest; the raw hash in older prose used the LF-normalized bytes. The Agreement 4 live graph contains both `14 → 15 REQUIRES` and `15 → 14 REQUIRES`; the latter explains suspension of clause 15 after invalidating clause 14. The previous deployment record omitted that reciprocal edge. The corrected validator and direction regression tests are offline and Direct Mode checks, not live semantic-consensus evidence. A new corrected live lifecycle is still required after any contract-source change.
 
 ## Verification run
 
-On 2026-10-16, the Windows local toolchain produced these results:
+On 2026-10-20, the repository-local toolchain produced these results:
 
-- Static preflight: **14/14 passed**.
-- Offline deterministic/adversarial suite: **21 passed**.
-- Direct Mode: **9 passed**; model and consumer provider responses are mocked as described above.
-- For each contract, `check` passed all three lint checks, `validate` passed (Sever: 21 methods; consumer: 2 methods), strict typecheck reported no type errors, and ABI schema generation succeeded.
-- Local CLI reported **0.39.1**. The RPC guard independently verified StudioNet chain ID **61999**.
+- Python **3.12.10**, Node **22.23.3**, pytest **8.4.2**, GenLayer Testing Suite **0.29.0**, GenVM Linter **0.11.0**, local CLI **0.39.1**.
+- Static preflight: **15/15 passed**.
+- Offline deterministic/adversarial suite: **23 passed**.
+- Direct Mode: **12 passed** against the real contract source with mocked model responses. The consumer case also mocks its provider response.
+- For Sever and consumer, `check` passed, `validate` passed (21 and 2 methods), strict typecheck reported zero errors, and ABI schema generation succeeded.
+- The network guard independently verified StudioNet chain ID **61999**.
 
-These local results are distinct from the public-chain evidence above. GitHub Actions passed for commit `f02a04a` in [run 38975646112](https://github.com/Ifem1/server/actions/runs/38975646112); both the `offline` and `direct-and-lint` jobs completed successfully.
+These checks verify local source behavior and target selection; they do not prove the corrected source is live. The old GitHub Actions run for commit `f02a04a` is historical only; the final pushed commit still needs its own successful Actions run.

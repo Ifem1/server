@@ -87,6 +87,44 @@ def test_validator_independently_checks_every_edge(direct_vm,direct_deploy,direc
     assert direct_vm.run_validator() is True
 
 
+def test_validator_rejects_unsupported_requires(direct_vm,direct_deploy,direct_alice,direct_bob):
+    c,a,ids,g,m=fixture(direct_vm,direct_deploy,direct_alice,direct_bob)
+    batch_index=0
+    pair=m['edges'][batch_index][:2]
+    direct_vm.mock_llm(fr'SEVER / LEADER BOUNDED PAIR {batch_index}',
+                       {'edges':[[pair[0],pair[1],'REQUIRES']]})
+    c.certify_dependency_batch(a,g,batch_index)
+    direct_vm.clear_mocks()
+    direct_vm.mock_llm(fr'SEVER / INDEPENDENT BOUNDED PAIR {batch_index}',
+                       {'edges':[[pair[0],pair[1],'INDEPENDENT']]})
+    assert direct_vm.run_validator() is False
+
+
+def test_validator_rejects_unsupported_uncertain(direct_vm,direct_deploy,direct_alice,direct_bob):
+    c,a,ids,g,m=fixture(direct_vm,direct_deploy,direct_alice,direct_bob)
+    batch_index=0
+    pair=m['edges'][batch_index][:2]
+    direct_vm.mock_llm(fr'SEVER / LEADER BOUNDED PAIR {batch_index}',
+                       {'edges':[[pair[0],pair[1],'UNCERTAIN']]})
+    c.certify_dependency_batch(a,g,batch_index)
+    direct_vm.clear_mocks()
+    direct_vm.mock_llm(fr'SEVER / INDEPENDENT BOUNDED PAIR {batch_index}',
+                       {'edges':[[pair[0],pair[1],'INDEPENDENT']]})
+    assert direct_vm.run_validator() is False
+
+
+def test_validator_rejects_conflicting_semantic_assessment(direct_vm,direct_deploy,direct_alice,direct_bob):
+    c,a,ids,g,m=fixture(direct_vm,direct_deploy,direct_alice,direct_bob)
+    cert(direct_vm,c,a,g,m)
+    batch_index=len(m['edges'])-1
+    proposed=m['edges'][batch_index][:]
+    pair=proposed[:2]
+    direct_vm.clear_mocks()
+    direct_vm.mock_llm(fr'SEVER / INDEPENDENT BOUNDED PAIR {batch_index}',
+                       {'edges':[[pair[0],pair[1],'REQUIRES']]})
+    assert direct_vm.run_validator() is False
+
+
 def test_validator_rejects_hidden_dependency(direct_vm,direct_deploy,direct_alice,direct_bob):
     c,a,ids,g,m=fixture(direct_vm,direct_deploy,direct_alice,direct_bob)
     cert(direct_vm,c,a,g,m)

@@ -5,5 +5,5 @@ networks:
     leader_only: false
 paths:
   contracts: contracts
-  artifacts: artifacts
+  artifacts: .gltest-artifacts
 environment: .env

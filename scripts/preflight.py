@@ -16,7 +16,8 @@ ck('INDEPENDENT BOUNDED PAIR' in core and 'one-directed-pair' in core,
    'independent reclassification of each bounded pair')
 ck('certification_epoch' in core and 'CERTIFICATION_INCOMPLETE' in core,
    'one immutable epoch requires complete batch coverage before certification')
-ck('ADVERSARIAL DEPENDENCY AUDIT' in core,'counterexample search on survival edges')
+ck('ADVERSARIAL DEPENDENCY AUDIT' in core and 'independent != proposed' in core,
+   'independent semantic agreement and contradiction challenge for every relation')
 ck('expected_pairs' in core and 'INCOMPLETE_MATRIX' in core,'no omitted matrix pairs')
 ck('CLAUSE_SUSPENDED' in core and 'UNCERTAIN' in core,'uncertainty fails closed')
 ck('INVALIDATION_NOT_UNANIMOUS' in core,'party unanimity required to mark invalid')
@@ -29,5 +30,7 @@ ck('https://studio.genlayer.com/api' in config and 'studio-dev' not in config,'o
 pkg=(root/'package.json').read_text()
 ck('"genlayer": "0.39.1"' in pkg,'repository-local CLI pinned')
 ck('studionet:' in config and 'leader_only: false' in config,'stable network and real consensus in test configuration')
+ck('artifacts: .gltest-artifacts' in config,
+   'Direct Mode clears only its generated artifacts, not release evidence')
 print(f'SEVER static preflight {len(checks)}/{len(checks)} PASS')
 for line in checks: print('PASS',line)

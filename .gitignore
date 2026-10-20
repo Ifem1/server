@@ -5,11 +5,17 @@ node_modules/
 .venv/
 __pycache__/
 .pytest_cache/
+.gltest-artifacts/
 *.pyc
 artifacts/*
 !artifacts/sever-abi.json
 !artifacts/sever-consumer-abi.json
 !artifacts/final-pair-certification.txt
 !artifacts/lifecycle-certification.txt
+!artifacts/source-parity-report.json
+!artifacts/historical-transaction-receipts.json
+!artifacts/onchain-source/
+artifacts/onchain-source/*
+!artifacts/onchain-source/*.py
 coverage/
 .DS_Store

@@ -32,6 +32,32 @@ def test_closure_directional_and_uncertain(ctx):
     assert state['core_failed'] is False
 
 
+def test_agreement4_dependency_direction_regression(ctx):
+    m,_,_=ctx
+    ids=[14,15,16]
+    pairs=m.expected_pairs(ids)
+    matrix={'edges':[[a,b,2 if (a,b)==(15,14) else 1] for a,b in pairs]}
+    result=m.impact_closure(ids,[14],matrix,[])
+    assert result['status']=={14:m.CLAUSE_INVALID,15:m.CLAUSE_SUSPENDED,16:m.CLAUSE_ACTIVE}
+    # Reversing the only edge must not suspend delivery when preparation fails.
+    reversed_matrix={'edges':[[a,b,2 if (a,b)==(14,15) else 1] for a,b in pairs]}
+    reversed_result=m.impact_closure(ids,[14],reversed_matrix,[])
+    assert reversed_result['status'][15]==m.CLAUSE_ACTIVE
+    assert reversed_result['status'][16]==m.CLAUSE_ACTIVE
+
+
+def test_certification_epoch_binds_exact_frozen_clause_text(ctx):
+    m,c,_=ctx
+    a=c.create_agreement('A','Frozen source scope')
+    c.add_clause(a,'preparation','Prepare the report',False)
+    c.add_clause(a,'delivery','Deliver the report',False)
+    clauses=c._clauses_frozen(c._agreement(a))
+    before=c._certification_epoch(a,c._agreement(a),clauses)
+    altered=[dict(item) for item in clauses]
+    altered[0]['text']='Prepare a substituted report'
+    assert c._certification_epoch(a,c._agreement(a),altered)!=before
+
+
 def test_essential_root_and_indirect_essential(ctx):
     m,_,_=ctx
     matrix={'edges':[[x,y,2 if [x,y]==[2,1] else 1] for x,y in m.expected_pairs([1,2,3])]}
@@ -89,12 +115,20 @@ def test_batched_graph_epoch_coverage_and_independent_validation(ctx):
     proposed={'edges':[[x,y,1] for x,y in row_pairs]}
     s.queue(complete)
     c.certify_dependency_batch(a,g,0)
-    # A risk-only proposal requires no empty-set adversarial audit call.
-    s.queue({'edges':[[x,y,'REQUIRES'] for x,y in row_pairs]})
-    assert s.last_validator(s.vm.Return({'edges':[[x,y,2] for x,y in row_pairs]})) is True
-    # An independent edge cannot survive when any validator sees risk.
+    requires={'edges':[[x,y,2] for x,y in row_pairs]}
+    uncertain={'edges':[[x,y,3] for x,y in row_pairs]}
+    # Every label, including risk classifications, must match an independent
+    # semantic assessment and survive a contradiction-oriented challenge.
     s.queue({'edges':[[x,y,'REQUIRES'] for x,y in row_pairs]},{'ok':True})
-    assert s.last_validator(s.vm.Return(proposed)) is False
+    assert s.last_validator(s.vm.Return(requires)) is True
+    s.queue(complete,{'ok':True})
+    assert s.last_validator(s.vm.Return(requires)) is False  # false dependency
+    s.queue(complete,{'ok':True})
+    assert s.last_validator(s.vm.Return(uncertain)) is False  # unsupported uncertainty
+    s.queue({'edges':[[x,y,'UNCERTAIN'] for x,y in row_pairs]},{'ok':True})
+    assert s.last_validator(s.vm.Return(uncertain)) is True  # genuine ambiguity
+    s.queue({'edges':[[x,y,'REQUIRES'] for x,y in row_pairs]},{'ok':True})
+    assert s.last_validator(s.vm.Return(proposed)) is False  # unsafe independence
     s.queue(complete,{'ok':False})
     assert s.last_validator(s.vm.Return(proposed)) is False
     s.queue(complete,{'ok':True})

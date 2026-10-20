@@ -6,9 +6,9 @@
 |---|---|---|
 | Proposer edits text after ratification | Immutable seal/genesis, ratification binds exact digest | Parties must read what they sign |
 | Fake legal invalidation | Every named party must endorse before finalization | An unwilling party can refuse to stipulate a genuine legal event; external courts are out of scope |
-| Malicious leader omits dependency | Full ordered matrix, independently re-executed by validators, separate omission-oriented audit | All models can share semantic blind spots; live adversarial replay is necessary |
+| Malicious leader mislabels a dependency | Validators independently classify the exact frozen pair, reject any class mismatch, and run a contradiction-oriented semantic challenge on every class | A validator quorum can share a semantic blind spot or accept the same adversarial reasoning; this is model consensus, not a formal proof |
 | Missing edge treated as independent | Exact `N×(N−1)` schema with strict ordering | No safe partial certification |
-| Ambiguous clause link | `UNCERTAIN` propagates SUSPENDED when target fails | Can over-suspend; deliberate conservative bias |
+| Ambiguous clause link | `UNCERTAIN` is accepted only when the validator's own semantic classification agrees and its challenge accepts the ambiguity; then it propagates SUSPENDED if its target fails | Conflicting models can prevent that pair from certifying; shared model error can still misclassify |
 | Dependency only indirectly impairs essential clause | Recompute transitive closure, collapse all on essential INVALID or SUSPENDED | Essentiality is explicitly agreed by parties, not inferred after the fact |
 | Cross-agreement ID substitution | Agreement, clause ID and genesis pinned in calls and storage | Consumers must pin intended IDs/hash |
 | Replaying old invalidation | Expected current head; one pending; finalized/rejected terminal flags | No automated re-opening/reversal of final invalidations |
@@ -32,7 +32,7 @@
 
 - Strict unanimity sacrifices liveness to prevent adversarial unilateral invalidation.
 - The graph is certified **once** at agreement activation, not refreshed using later outside evidence. Amendments require a new agreement.
-- Consensus agreement on a full relation vector can be costly, especially at six clauses; no fixed fee guarantee is made.
+- Exact semantic agreement and a second class-specific challenge are required for each directed pair. This can reduce certification availability and add model work; one-pair batches bound the disagreement and allow retries, with no fixed fee or completion guarantee.
 - The contract cannot prove a clause is *legally* severable in any particular jurisdiction. Its output is the logical operability of a frozen synthetic bargain under party-ratified invalidation.
 - The protocol is a **v1 bounded contract primitive** rather than an entire document parser, clause-renegotiation framework or legal execution platform.
 - If a downstream consumer needs all clauses active, it must check every relevant clause, not just `is_agreement_operative`.

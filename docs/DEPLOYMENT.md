@@ -95,3 +95,7 @@ The structured receipts for the deployment, all six pair calls, graph finalizati
 ## Earlier agreements
 
 Agreements 1 and 2 and their initial failed certification attempts are retained as historical diagnostics. Their sealed terms remain immutable and their certification failures did not change their uncertified state. The successful Agreement 3 and Agreement 4 evidence above supersedes any earlier statement that no live lifecycle was demonstrated. No wallet keys or credentials are stored in this repository.
+
+## Current live negative receipts
+
+The current receipt bundle also records two verified StudioNet negative cases from the preserved incomplete Agreement 2 attempt: [finalization with an uncertified directed pair](https://explorer-studio.genlayer.com/tx/0xff4df01a8ddadbd20a9d4cba0f0ba780cef064f6bc63d1d5533b07d36ddc3b6e) reached consensus but reverted with CERTIFICATION_INCOMPLETE; [repeating a certified batch](https://explorer-studio.genlayer.com/tx/0x71bb0987f9851a62f6dae0b73cef0c4ce0de5d0ce952edee81e01906cae7da7a) reached consensus but reverted with BATCH_ALREADY_CERTIFIED. These transactions did not certify or mutate the failed agreement. Other security cases, including stale-head checks, authorization, veto/recovery, and malformed validator results, are covered by unit and official Direct Mode tests; they are not claimed as live transactions in this receipt bundle.

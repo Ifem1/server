@@ -23,6 +23,8 @@ const entries = [
   ['Lifecycle B essential invalidation finalization', '0xd0eb27dcebfa5a5595b86bee42fbd13a6964a112a3fe5bc206d0f124a0a2f586'],
   ['Lifecycle B consumer deployment', '0x1ab7bf52b48c88df5d929c90d8559776b08927c06b50a918f07dcc01805651b6'],
   ['Lifecycle B collapsed-consumer rejected action', '0x4e665162558c1f876e8911aedb1be3e772a4f390a19e89170665b662fba5dfd6'],
+  ['Lifecycle C incomplete certification finalization rejected', '0xff4df01a8ddadbd20a9d4cba0f0ba780cef064f6bc63d1d5533b07d36ddc3b6e'],
+  ['Lifecycle C duplicate certification rejected', '0x71bb0987f9851a62f6dae0b73cef0c4ce0de5d0ce952edee81e01906cae7da7a'],
 ];
 
 const client = createClient({ chain: studionet, endpoint });

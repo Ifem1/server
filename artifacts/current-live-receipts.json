@@ -1,7 +1,7 @@
 {
   "rpc": "https://studio.genlayer.com/api",
   "chain_id": 61999,
-  "captured_at_utc": "2026-10-20T21:55:27.471Z",
+  "captured_at_utc": "2026-10-20T22:02:28.992Z",
   "transactions": [
     {
       "label": "Corrected Sever deployment",
@@ -323,6 +323,40 @@
       },
       "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
       "to": "0x2533A97840d431E0dE4B1385c77477411e27A450"
+    },
+    {
+      "label": "Lifecycle C incomplete certification finalization rejected",
+      "transaction_hash": "0xff4df01a8ddadbd20a9d4cba0f0ba780cef064f6bc63d1d5533b07d36ddc3b6e",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0xff4df01a8ddadbd20a9d4cba0f0ba780cef064f6bc63d1d5533b07d36ddc3b6e",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "ERROR",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "rollback",
+      "contract_return_payload": "CERTIFICATION_INCOMPLETE",
+      "validator_vote_counts": {
+        "agree": 5
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
+    },
+    {
+      "label": "Lifecycle C duplicate certification rejected",
+      "transaction_hash": "0x71bb0987f9851a62f6dae0b73cef0c4ce0de5d0ce952edee81e01906cae7da7a",
+      "explorer_url": "https://explorer-studio.genlayer.com/tx/0x71bb0987f9851a62f6dae0b73cef0c4ce0de5d0ce952edee81e01906cae7da7a",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution_result": "ERROR",
+      "genvm_error_code": null,
+      "leader_stderr": "",
+      "contract_return_status": "rollback",
+      "contract_return_payload": "BATCH_ALREADY_CERTIFIED",
+      "validator_vote_counts": {
+        "agree": 5
+      },
+      "from": "0xD6423aE82a975d55C6CeaC222827A727325e0459",
+      "to": "0xD7D258B09B21017D42EEcb14158d062e60E2064b"
     }
   ]
 }
